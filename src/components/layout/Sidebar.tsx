@@ -1,14 +1,13 @@
 import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard, Calendar, Users, Building2, Shield,
-  CalendarDays, FileText, Settings, LogOut, Menu,
+  CalendarDays, FileText, Settings, LogOut, Menu, ChevronLeft,
 } from 'lucide-react'
 import { useAuthStore } from '@/stores/authStore'
 import { useSidebarStore } from '@/stores/sidebarStore'
-import { useLogout } from '@/hooks/useAuth'
+import { useLogout, useAdminLogout } from '@/hooks/useAuth'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
 
 const employeeLinks = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -33,47 +32,85 @@ const adminLinks = [
 
 export function Sidebar() {
   const user = useAuthStore((s) => s.user)
+  const adminUser = useAuthStore((s) => s.adminUser)
   const { isOpen, toggle } = useSidebarStore()
   const logout = useLogout()
+  const adminLogout = useAdminLogout()
 
   const role = user?.role
+  const isAdmin = !!adminUser
 
   return (
     <aside
       className={cn(
-        'flex flex-col h-screen bg-background border-r transition-all duration-200',
-        isOpen ? 'w-56' : 'w-14'
+        'flex flex-col h-screen border-r bg-white transition-all duration-200 ease-in-out',
+        isOpen ? 'w-60' : 'w-[68px]'
       )}
     >
-      {/* Toggle */}
-      <div className="flex items-center h-14 px-3 border-b">
-        <Button variant="ghost" size="icon" onClick={toggle}>
-          <Menu className="h-5 w-5" />
+      {/* Brand header */}
+      <div className="flex items-center h-16 px-3 border-b">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggle}
+          className="shrink-0 cursor-pointer hover:bg-muted"
+        >
+          {isOpen ? <ChevronLeft className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
-        {isOpen && <span className="ml-2 font-bold text-primary">Click4Cuti</span>}
+        {isOpen && (
+          <div className="ml-2 flex items-center gap-2">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0F766E] text-white">
+              <CalendarDays className="h-3.5 w-3.5" />
+            </div>
+            <span className="font-semibold text-[#0F766E] tracking-tight">Click4Cuti</span>
+          </div>
+        )}
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-4 space-y-1 px-2">
-        {employeeLinks.map((link) => (
-          <SidebarLink key={link.to} {...link} isOpen={isOpen} />
-        ))}
-
-        {(role === 'MANAGER' || role === 'ADMIN') && (
+      <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-1">
+        {isAdmin ? (
+          adminLinks.map((link) => (
+            <SidebarLink key={link.to} {...link} isOpen={isOpen} />
+          ))
+        ) : (
           <>
-            <Separator className="my-2" />
-            {managerLinks.map((link) => (
+            {isOpen && (
+              <p className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
+                Main
+              </p>
+            )}
+            {employeeLinks.map((link) => (
               <SidebarLink key={link.to} {...link} isOpen={isOpen} />
             ))}
-          </>
-        )}
 
-        {role === 'ADMIN' && (
-          <>
-            <Separator className="my-2" />
-            {adminLinks.map((link) => (
-              <SidebarLink key={link.to} {...link} isOpen={isOpen} />
-            ))}
+            {(role === 'MANAGER' || role === 'ADMIN') && (
+              <>
+                {isOpen && (
+                  <p className="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
+                    Management
+                  </p>
+                )}
+                {!isOpen && <div className="my-2 mx-2 border-t" />}
+                {managerLinks.map((link) => (
+                  <SidebarLink key={link.to} {...link} isOpen={isOpen} />
+                ))}
+              </>
+            )}
+
+            {role === 'ADMIN' && (
+              <>
+                {isOpen && (
+                  <p className="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
+                    Administration
+                  </p>
+                )}
+                {!isOpen && <div className="my-2 mx-2 border-t" />}
+                {adminLinks.map((link) => (
+                  <SidebarLink key={link.to} {...link} isOpen={isOpen} />
+                ))}
+              </>
+            )}
           </>
         )}
       </nav>
@@ -81,8 +118,11 @@ export function Sidebar() {
       {/* Logout */}
       <div className="p-2 border-t">
         <button
-          onClick={() => logout.mutate()}
-          className="flex items-center gap-2 w-full rounded-md px-2 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+          onClick={() => isAdmin ? adminLogout.mutate() : logout.mutate()}
+          className={cn(
+            'flex items-center gap-3 w-full rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer',
+            !isOpen && 'justify-center px-0'
+          )}
         >
           <LogOut className="h-4 w-4 shrink-0" />
           {isOpen && <span>Logout</span>}
@@ -109,12 +149,14 @@ function SidebarLink({
       end={to === '/dashboard' || to === '/admin'}
       className={({ isActive }) =>
         cn(
-          'flex items-center gap-2 rounded-md px-2 py-2 text-sm transition-colors',
+          'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors',
           isActive
-            ? 'bg-primary/10 text-primary font-medium'
-            : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+            ? 'bg-[#0F766E]/10 text-[#0F766E] font-medium'
+            : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+          !isOpen && 'justify-center px-0'
         )
       }
+      title={!isOpen ? label : undefined}
     >
       <Icon className="h-4 w-4 shrink-0" />
       {isOpen && <span>{label}</span>}

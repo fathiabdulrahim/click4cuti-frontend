@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -5,7 +7,16 @@ import { useLogin } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import {
+  CalendarDays,
+  Eye,
+  EyeOff,
+  Loader2,
+  Clock,
+  Users,
+  CheckCircle2,
+  BarChart3,
+} from 'lucide-react'
 
 const schema = z.object({
   email: z.string().email('Invalid email address'),
@@ -14,8 +25,16 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>
 
+const features = [
+  { icon: Clock, title: 'Leave Tracking', desc: 'Real-time balance & history' },
+  { icon: Users, title: 'Team Calendar', desc: 'See who is in and who is out' },
+  { icon: CheckCircle2, title: 'Quick Approvals', desc: 'One-click approve or reject' },
+  { icon: BarChart3, title: 'HR Analytics', desc: 'Insights at a glance' },
+]
+
 export default function LoginPage() {
   const login = useLogin()
+  const [showPassword, setShowPassword] = useState(false)
   const {
     register,
     handleSubmit,
@@ -27,56 +46,168 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/40">
-      <Card className="w-full max-w-sm">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Click4Cuti</CardTitle>
-          <CardDescription>Sign in to your account</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="space-y-1">
-              <Label htmlFor="email">Email</Label>
+    <div className="grid min-h-screen lg:grid-cols-5">
+      {/* Left panel - Branding (3/5 width) */}
+      <div className="hidden lg:flex lg:col-span-3 flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#0F766E] via-[#0D6B63] to-[#134E4A] p-12 text-white">
+        {/* Decorative elements */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-white/5" />
+          <div className="absolute top-1/3 -left-16 h-64 w-64 rounded-full bg-white/5" />
+          <div className="absolute bottom-20 right-1/4 h-48 w-48 rounded-full bg-white/[0.03]" />
+          <div className="absolute top-1/2 right-12 h-32 w-32 rounded-full border border-white/10" />
+        </div>
+
+        {/* Logo */}
+        <div className="relative flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm">
+            <CalendarDays className="h-6 w-6" />
+          </div>
+          <span className="text-xl font-semibold tracking-tight">Click4Cuti</span>
+        </div>
+
+        {/* Hero content */}
+        <div className="relative space-y-8">
+          <div className="space-y-4">
+            <h1 className="text-4xl font-bold leading-tight tracking-tight xl:text-5xl">
+              Leave management,
+              <br />
+              <span className="text-white/80">made effortless.</span>
+            </h1>
+            <p className="max-w-lg text-lg leading-relaxed text-white/70">
+              Streamline your HR workflows — from leave requests to approvals, all in one unified platform built for modern teams.
+            </p>
+          </div>
+
+          {/* Feature grid */}
+          <div className="grid grid-cols-2 gap-4 max-w-lg">
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="flex items-start gap-3 rounded-xl bg-white/[0.08] p-4 backdrop-blur-sm"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/15">
+                  <f.icon className="h-4.5 w-4.5" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium">{f.title}</p>
+                  <p className="text-xs text-white/60">{f.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <p className="relative text-sm text-white/40">
+          &copy; {new Date().getFullYear()} Click4Cuti. All rights reserved.
+        </p>
+      </div>
+
+      {/* Right panel - Form (2/5 width) */}
+      <div className="flex flex-col lg:col-span-2 items-center justify-center px-6 py-12 bg-[#FAFBFC]">
+        {/* Mobile logo */}
+        <div className="mb-10 flex items-center gap-3 lg:hidden">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0F766E] text-white">
+            <CalendarDays className="h-6 w-6" />
+          </div>
+          <span className="text-xl font-semibold tracking-tight">Click4Cuti</span>
+        </div>
+
+        <div className="w-full max-w-sm space-y-8">
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold tracking-tight">Welcome back</h2>
+            <p className="text-sm text-muted-foreground">
+              Sign in to access your leave dashboard
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email address</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="you@company.com"
+                autoComplete="email"
                 {...register('email')}
+                className={errors.email ? 'border-destructive focus-visible:ring-destructive' : ''}
               />
               {errors.email && (
                 <p className="text-xs text-destructive">{errors.email.message}</p>
               )}
             </div>
 
-            <div className="space-y-1">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                {...register('password')}
-              />
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">Password</Label>
+                <Link
+                  to="/forgot-password"
+                  className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
+                  {...register('password')}
+                  className={
+                    errors.password
+                      ? 'border-destructive focus-visible:ring-destructive pr-10'
+                      : 'pr-10'
+                  }
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  tabIndex={-1}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
               {errors.password && (
                 <p className="text-xs text-destructive">{errors.password.message}</p>
               )}
             </div>
 
             {login.error && (
-              <p className="text-xs text-destructive text-center">
+              <div className="flex items-center gap-2 rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
                 Invalid email or password
-              </p>
+              </div>
             )}
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full h-10 cursor-pointer font-medium"
               disabled={login.isPending}
             >
-              {login.isPending ? 'Signing in…' : 'Sign In'}
+              {login.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                'Sign In'
+              )}
             </Button>
           </form>
-        </CardContent>
-      </Card>
+
+          {/* Divider */}
+          <div className="text-center text-xs text-muted-foreground/60">
+            Secure login powered by Click4Cuti
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
