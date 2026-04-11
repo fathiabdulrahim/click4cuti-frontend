@@ -21,7 +21,7 @@ export default function TeamRequestsPage() {
       { id, status, reviewer_remarks: remarks[id] },
       {
         onSuccess: () =>
-          addToast({ title: `Leave ${status.toLowerCase()}`, description: `Application has been ${status.toLowerCase()}.` }),
+          addToast({ title: `Leave ${status.toLowerCase()}`, description: `Application has been ${status.toLowerCase()}.`, variant: 'success' }),
         onError: () =>
           addToast({ title: 'Error', description: 'Failed to update request.', variant: 'destructive' }),
       }

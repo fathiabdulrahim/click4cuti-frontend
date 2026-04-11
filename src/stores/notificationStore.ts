@@ -4,7 +4,7 @@ export interface Toast {
   id: string
   title: string
   description?: string
-  variant?: 'default' | 'destructive'
+  variant?: 'default' | 'success' | 'destructive' | 'warning'
 }
 
 interface NotificationState {
@@ -16,10 +16,16 @@ interface NotificationState {
 export const useNotificationStore = create<NotificationState>((set) => ({
   toasts: [],
 
-  addToast: (toast) =>
+  addToast: (toast) => {
+    const id = crypto.randomUUID()
     set((state) => ({
-      toasts: [...state.toasts, { ...toast, id: crypto.randomUUID() }],
-    })),
+      toasts: [...state.toasts, { ...toast, id }],
+    }))
+    // Auto-dismiss after 4 seconds
+    setTimeout(() => {
+      set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) }))
+    }, 4000)
+  },
 
   removeToast: (id) =>
     set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) })),

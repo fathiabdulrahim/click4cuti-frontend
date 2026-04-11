@@ -81,7 +81,7 @@ export default function AgencyManagementPage() {
 
     mutation
       .then(() => {
-        addToast({ title: editing ? 'Agency updated' : 'Agency created' })
+        addToast({ title: editing ? 'Agency updated' : 'Agency created', variant: 'success' })
         setDialogOpen(false)
       })
       .catch(() => addToast({ title: 'Something went wrong', variant: 'destructive' }))

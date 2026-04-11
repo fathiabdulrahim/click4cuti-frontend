@@ -97,7 +97,7 @@ export default function AgencyDetailPage() {
     updateAgency
       .mutateAsync({ id: id!, ...data })
       .then(() => {
-        addToast({ title: 'Agency updated' })
+        addToast({ title: 'Agency updated', variant: 'success' })
         setEditOpen(false)
       })
       .catch(() => addToast({ title: 'Something went wrong', variant: 'destructive' }))
@@ -112,7 +112,7 @@ export default function AgencyDetailPage() {
     createCompany
       .mutateAsync({ ...data, agency_id: id })
       .then(() => {
-        addToast({ title: 'Company created' })
+        addToast({ title: 'Company created', variant: 'success' })
         setCompanyOpen(false)
       })
       .catch(() => addToast({ title: 'Something went wrong', variant: 'destructive' }))

@@ -37,7 +37,7 @@ export default function ProfilePage() {
 
   const onSubmit = (data: FormValues) => {
     update.mutate(data, {
-      onSuccess: () => addToast({ title: 'Profile updated' }),
+      onSuccess: () => addToast({ title: 'Profile updated', variant: 'success' }),
       onError: () => addToast({ title: 'Error', description: 'Failed to update profile.', variant: 'destructive' }),
     })
   }

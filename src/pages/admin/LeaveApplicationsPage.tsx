@@ -29,7 +29,7 @@ export default function LeaveApplicationsPage() {
     update.mutate(
       { id, status },
       {
-        onSuccess: () => addToast({ title: `Leave ${status.toLowerCase()}` }),
+        onSuccess: () => addToast({ title: `Leave ${status.toLowerCase()}`, variant: 'success' }),
         onError: () => addToast({ title: 'Error', variant: 'destructive' }),
       }
     )

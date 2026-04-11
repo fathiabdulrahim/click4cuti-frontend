@@ -45,9 +45,16 @@ export interface Company {
   name: string
   registration_number?: string
   hr_email: string
+  phone?: string
+  website?: string
+  industry?: string
+  company_size?: string
+  logo_url?: string
   address?: string
   state?: string
   agency_id?: string
+  financial_year_start?: number
+  probation_months?: number
   is_active: boolean
   created_at?: string
   updated_at?: string

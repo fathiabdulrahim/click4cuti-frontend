@@ -36,9 +36,15 @@ const schema = z.object({
   name: z.string().min(1, 'Name is required'),
   registration_number: z.string().optional(),
   hr_email: z.string().email('Invalid email'),
+  phone: z.string().optional(),
+  website: z.string().optional(),
+  industry: z.string().optional(),
+  company_size: z.string().optional(),
   address: z.string().optional(),
   state: z.string().optional(),
   agency_id: z.string().optional(),
+  financial_year_start: z.coerce.number().min(1).max(12).optional(),
+  probation_months: z.coerce.number().min(0).optional(),
 })
 
 type FormValues = z.infer<typeof schema>
@@ -66,7 +72,7 @@ export default function CompanyManagementPage() {
   const openCreate = () => {
     setEditing(null)
     setSelectedAgencyId('')
-    reset({ name: '', registration_number: '', hr_email: '', address: '', state: '', agency_id: '' })
+    reset({ name: '', registration_number: '', hr_email: '', phone: '', website: '', industry: '', company_size: '', address: '', state: '', agency_id: '', financial_year_start: undefined, probation_months: undefined })
     setDialogOpen(true)
   }
 
@@ -77,9 +83,15 @@ export default function CompanyManagementPage() {
       name: company.name,
       registration_number: company.registration_number ?? '',
       hr_email: company.hr_email,
+      phone: company.phone ?? '',
+      website: company.website ?? '',
+      industry: company.industry ?? '',
+      company_size: company.company_size ?? '',
       address: company.address ?? '',
       state: company.state ?? '',
       agency_id: company.agency_id ?? '',
+      financial_year_start: company.financial_year_start,
+      probation_months: company.probation_months,
     })
     setDialogOpen(true)
   }
@@ -91,7 +103,7 @@ export default function CompanyManagementPage() {
 
     mutation
       .then(() => {
-        addToast({ title: editing ? 'Company updated' : 'Company created' })
+        addToast({ title: editing ? 'Company updated' : 'Company created', variant: 'success' })
         setDialogOpen(false)
       })
       .catch(() => addToast({ title: 'Something went wrong', variant: 'destructive' }))
@@ -145,7 +157,7 @@ export default function CompanyManagementPage() {
               <TableHeader>
                 <TableRow className="bg-muted/30 hover:bg-muted/30">
                   <TableHead className="pl-6">Company</TableHead>
-                  <TableHead>Registration No.</TableHead>
+                  <TableHead>Industry</TableHead>
                   <TableHead>HR Email</TableHead>
                   <TableHead>Agency</TableHead>
                   <TableHead>State</TableHead>
@@ -165,7 +177,7 @@ export default function CompanyManagementPage() {
                       </Link>
                     </TableCell>
                     <TableCell className="text-muted-foreground">
-                      {company.registration_number ?? '—'}
+                      {company.industry ?? '—'}
                     </TableCell>
                     <TableCell className="text-muted-foreground">{company.hr_email}</TableCell>
                     <TableCell className="text-muted-foreground">
@@ -198,7 +210,7 @@ export default function CompanyManagementPage() {
 
       {/* Create / Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editing ? 'Edit Company' : 'New Company'}</DialogTitle>
             <DialogDescription>
@@ -207,32 +219,53 @@ export default function CompanyManagementPage() {
                 : 'Fill in the details to register a new company.'}
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Company Name</Label>
-              <Input id="name" placeholder="e.g. Acme Corp Sdn Bhd" {...register('name')} />
-              {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
+            {/* Basic info */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Company Name</Label>
+                <Input id="name" placeholder="e.g. Acme Corp Sdn Bhd" {...register('name')} />
+                {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="registration_number">Registration Number</Label>
+                <Input id="registration_number" placeholder="e.g. 202301012345" {...register('registration_number')} />
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="registration_number">Registration Number</Label>
-              <Input
-                id="registration_number"
-                placeholder="e.g. 202301012345"
-                {...register('registration_number')}
-              />
+
+            {/* Contact */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="hr_email">HR Email</Label>
+                <Input id="hr_email" type="email" placeholder="hr@company.com" {...register('hr_email')} />
+                {errors.hr_email && (
+                  <p className="text-xs text-destructive">{errors.hr_email.message}</p>
+                )}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone</Label>
+                <Input id="phone" placeholder="+60 3-1234 5678" {...register('phone')} />
+              </div>
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="hr_email">HR Email</Label>
-              <Input
-                id="hr_email"
-                type="email"
-                placeholder="hr@company.com"
-                {...register('hr_email')}
-              />
-              {errors.hr_email && (
-                <p className="text-xs text-destructive">{errors.hr_email.message}</p>
-              )}
+              <Label htmlFor="website">Website</Label>
+              <Input id="website" placeholder="https://company.com" {...register('website')} />
             </div>
+
+            {/* Business */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="industry">Industry</Label>
+                <Input id="industry" placeholder="e.g. Technology, Healthcare" {...register('industry')} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="company_size">Company Size</Label>
+                <Input id="company_size" placeholder="e.g. 1-50, 51-200" {...register('company_size')} />
+              </div>
+            </div>
+
+            {/* Agency */}
             <div className="space-y-2">
               <Label>Agency</Label>
               <Combobox
@@ -250,6 +283,8 @@ export default function CompanyManagementPage() {
                 searchPlaceholder="Search agencies..."
               />
             </div>
+
+            {/* Location */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="address">Address</Label>
@@ -258,6 +293,18 @@ export default function CompanyManagementPage() {
               <div className="space-y-2">
                 <Label htmlFor="state">State</Label>
                 <Input id="state" placeholder="e.g. Selangor" {...register('state')} />
+              </div>
+            </div>
+
+            {/* HR settings */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="financial_year_start">Financial Year Start (month)</Label>
+                <Input id="financial_year_start" type="number" min={1} max={12} placeholder="1 = January" {...register('financial_year_start')} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="probation_months">Probation Period (months)</Label>
+                <Input id="probation_months" type="number" min={0} placeholder="e.g. 3" {...register('probation_months')} />
               </div>
             </div>
             <DialogFooter className="pt-2">
