@@ -21,6 +21,8 @@ import AgencyManagementPage from './pages/admin/AgencyManagementPage'
 import PolicyManagementPage from './pages/admin/PolicyManagementPage'
 import HolidayManagementPage from './pages/admin/HolidayManagementPage'
 import LeaveApplicationsPage from './pages/admin/LeaveApplicationsPage'
+import AgencyDetailPage from './pages/admin/AgencyDetailPage'
+import CompanyDetailPage from './pages/admin/CompanyDetailPage'
 
 export default function App() {
   return (
@@ -57,11 +59,13 @@ export default function App() {
             {/* Agency + SuperAdmin only */}
             <Route element={<ScopeGuard allowedScopes={['AGENCY', 'SUPER_ADMIN']} />}>
               <Route path="/admin/companies" element={<CompanyManagementPage />} />
+              <Route path="/admin/companies/:id" element={<CompanyDetailPage />} />
             </Route>
 
             {/* SuperAdmin only */}
             <Route element={<ScopeGuard allowedScopes={['SUPER_ADMIN']} />}>
               <Route path="/admin/agencies" element={<AgencyManagementPage />} />
+              <Route path="/admin/agencies/:id" element={<AgencyDetailPage />} />
             </Route>
           </Route>
         </Route>

@@ -17,6 +17,31 @@ export function useAdminDashboard() {
   })
 }
 
+// Single entity fetches
+export function useAdminAgency(id: string) {
+  return useQuery({
+    queryKey: ['admin', 'agencies', id],
+    queryFn: () => adminAgenciesApi.getOne(id).then((r) => r.data),
+    enabled: !!id,
+  })
+}
+
+export function useAdminCompany(id: string) {
+  return useQuery({
+    queryKey: ['admin', 'companies', id],
+    queryFn: () => adminCompaniesApi.getOne(id).then((r) => r.data),
+    enabled: !!id,
+  })
+}
+
+export function useAdminUser(id: string) {
+  return useQuery({
+    queryKey: ['admin', 'users', id],
+    queryFn: () => adminUsersApi.getOne(id).then((r) => r.data),
+    enabled: !!id,
+  })
+}
+
 // Users
 export function useAdminUsers(params?: Record<string, string>) {
   return useQuery({
@@ -71,6 +96,24 @@ export function useCreateAgency() {
   return useMutation({
     mutationFn: (payload: Record<string, unknown>) => adminAgenciesApi.create(payload).then((r) => r.data),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'agencies'] }),
+  })
+}
+
+export function useUpdateAgency() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: { id: string } & Record<string, unknown>) =>
+      adminAgenciesApi.update(id, payload).then((r) => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'agencies'] }),
+  })
+}
+
+export function useUpdateCompany() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: { id: string } & Record<string, unknown>) =>
+      adminCompaniesApi.update(id, payload).then((r) => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'companies'] }),
   })
 }
 
