@@ -8,10 +8,10 @@ import {
   ArrowRight,
   Building2,
   UserCog,
-  Sparkles,
-  Zap,
-  Globe,
-  ChevronRight,
+  CheckCircle2,
+  Briefcase,
+  CalendarCheck,
+  FileCheck,
 } from 'lucide-react'
 
 const features = [
@@ -20,211 +20,291 @@ const features = [
     title: 'Leave Tracking',
     description:
       'Apply, track, and manage leave requests with real-time balance updates and calendar views.',
-    span: 'lg:col-span-2',
+    colSpan: 'sm:col-span-2',
+    accent: 'bg-[#0F766E]',
   },
   {
     icon: Users,
     title: 'Team Management',
     description:
-      'Managers can review and approve team leave requests with a clear overview of availability.',
-    span: '',
+      'Review and approve team leave requests with a clear overview of availability.',
+    colSpan: '',
+    accent: 'bg-[#0369A1]',
   },
   {
     icon: ShieldCheck,
     title: 'Policy Compliance',
     description:
-      'Configure leave policies, public holidays, and work schedules per company and department.',
-    span: '',
+      'Configure leave policies, public holidays, and work schedules per company.',
+    colSpan: '',
+    accent: 'bg-[#0F766E]',
   },
   {
     icon: BarChart3,
     title: 'HR Analytics',
     description:
-      'Comprehensive dashboards with insights on leave trends, utilization, and workforce planning.',
-    span: 'lg:col-span-2',
+      'Dashboards with insights on leave trends, utilization, and workforce planning.',
+    colSpan: '',
+    accent: 'bg-[#0369A1]',
   },
   {
     icon: Clock,
     title: 'Quick Approvals',
     description:
       'Streamlined approval workflows that keep your team moving without delays.',
-    span: '',
+    colSpan: '',
+    accent: 'bg-[#0F766E]',
   },
   {
     icon: Building2,
     title: 'Multi-Tenant',
     description:
       'Support for multiple agencies and companies with hierarchical access control.',
-    span: '',
-  },
-  {
-    icon: Globe,
-    title: 'Accessible Anywhere',
-    description:
-      'Responsive design works seamlessly on desktop, tablet, and mobile devices.',
-    span: 'lg:col-span-2',
+    colSpan: 'sm:col-span-2',
+    accent: 'bg-[#0369A1]',
   },
 ]
 
-const stats = [
-  { label: 'Faster Approvals', value: '3x', icon: Zap },
-  { label: 'Time Saved Monthly', value: '40hrs', icon: Clock },
-  { label: 'Policy Compliance', value: '100%', icon: ShieldCheck },
-  { label: 'Team Visibility', value: 'Real-time', icon: Globe },
+const steps = [
+  {
+    icon: Briefcase,
+    step: '01',
+    title: 'Employee Applies',
+    description: 'Submit leave requests in seconds with an intuitive form.',
+  },
+  {
+    icon: FileCheck,
+    step: '02',
+    title: 'Manager Reviews',
+    description: 'Managers get notified and approve or reject with one click.',
+  },
+  {
+    icon: CalendarCheck,
+    step: '03',
+    title: 'Everyone Stays Synced',
+    description:
+      'Balances update automatically. The team calendar reflects changes instantly.',
+  },
 ]
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#030712] text-white overflow-hidden">
-      {/* Animated aurora background */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[#0F766E]/20 blur-[120px] animate-pulse" />
-        <div
-          className="absolute top-[10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[#5EEAD4]/10 blur-[100px]"
-          style={{ animation: 'pulse 4s ease-in-out infinite 1s' }}
-        />
-        <div
-          className="absolute bottom-[-10%] left-[30%] w-[700px] h-[700px] rounded-full bg-[#0F766E]/15 blur-[140px]"
-          style={{ animation: 'pulse 5s ease-in-out infinite 2s' }}
-        />
-      </div>
-
+    <div className="min-h-screen bg-[#F8FAFA]">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50">
-        <div className="mx-4 sm:mx-6 lg:mx-8 mt-4">
-          <div className="max-w-7xl mx-auto bg-white/[0.05] backdrop-blur-xl border border-white/[0.08] rounded-2xl px-6 h-14 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0F766E] to-[#5EEAD4] flex items-center justify-center">
-                <CalendarDays className="w-4.5 h-4.5 text-white" />
-              </div>
-              <span className="text-lg font-bold tracking-tight">
-                Click4Cuti
-              </span>
+      <nav className="sticky top-0 z-50 bg-white border-b border-[#E8EDED]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-[#0F766E] flex items-center justify-center shadow-sm">
+              <CalendarDays className="w-5 h-5 text-white" />
             </div>
-            <div className="flex items-center gap-2">
-              <Link
-                to="/login"
-                className="text-sm font-medium text-white/70 hover:text-white transition-colors cursor-pointer px-4 py-2 rounded-lg hover:bg-white/[0.06]"
-              >
-                Employee
-              </Link>
-              <Link
-                to="/admin/login"
-                className="text-sm font-medium text-white bg-white/[0.1] hover:bg-white/[0.15] transition-all cursor-pointer px-4 py-2 rounded-lg border border-white/[0.08]"
-              >
-                Admin Portal
-              </Link>
-            </div>
+            <span className="text-xl font-bold text-[#134E4A] tracking-tight">
+              Click4Cuti
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/login"
+              className="text-sm font-medium text-[#134E4A]/70 hover:text-[#0F766E] transition-colors cursor-pointer px-4 py-2 rounded-lg"
+            >
+              Employee Login
+            </Link>
+            <Link
+              to="/admin/login"
+              className="text-sm font-semibold text-white bg-[#0F766E] hover:bg-[#0D6B63] transition-colors cursor-pointer px-5 py-2 rounded-lg shadow-sm"
+            >
+              Admin Portal
+            </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="relative pt-36 sm:pt-44 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="relative max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-[#5EEAD4]/10 border border-[#5EEAD4]/20 text-[#5EEAD4] text-sm font-medium px-4 py-1.5 rounded-full mb-8">
-            <Sparkles className="w-3.5 h-3.5" />
-            Modern Leave Management Platform
-          </div>
+      {/* Hero — Split Layout */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left — Copy */}
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#0F766E] bg-[#0F766E]/8 px-3 py-1 rounded-full mb-6">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                Leave Management System
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-bold text-[#134E4A] tracking-tight leading-[1.15]">
+                Leave management
+                <br />
+                your team can
+                <br />
+                <span className="text-[#0F766E]">rely on.</span>
+              </h1>
+              <p className="mt-5 text-base sm:text-lg text-[#134E4A]/60 leading-relaxed max-w-md">
+                Click4Cuti streamlines leave applications, approvals, and
+                tracking for organizations of every size. Built for HR teams that
+                value clarity.
+              </p>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-            Manage Leave
-            <br />
-            <span className="bg-gradient-to-r from-[#5EEAD4] via-[#0F766E] to-[#5EEAD4] bg-clip-text text-transparent">
-              Effortlessly
-            </span>
-          </h1>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Link
+                  to="/login"
+                  className="group inline-flex items-center justify-center gap-2 bg-[#0F766E] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#0D6B63] transition-all duration-200 cursor-pointer shadow-sm"
+                >
+                  <UserCog className="w-4.5 h-4.5" />
+                  Employee Login
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/admin/login"
+                  className="group inline-flex items-center justify-center gap-2 bg-[#134E4A]/5 text-[#134E4A] font-semibold px-6 py-3 rounded-xl border border-[#134E4A]/10 hover:border-[#134E4A]/20 hover:bg-[#134E4A]/8 transition-all duration-200 cursor-pointer"
+                >
+                  <ShieldCheck className="w-4.5 h-4.5" />
+                  Admin Portal
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
 
-          <p className="mt-6 text-lg sm:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
-            Streamline leave applications, approvals, and tracking for your
-            entire organization. Built for modern teams.
-          </p>
+              {/* Trust signal */}
+              <div className="mt-8 flex items-center gap-4 text-xs text-[#134E4A]/40">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0F766E]/50" />
+                  Multi-tenant ready
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0F766E]/50" />
+                  Role-based access
+                </span>
+                <span className="flex items-center gap-1.5 hidden sm:flex">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0F766E]/50" />
+                  Real-time sync
+                </span>
+              </div>
+            </div>
 
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/login"
-              className="group relative inline-flex items-center gap-2.5 font-semibold px-8 py-4 rounded-2xl cursor-pointer transition-all duration-300 bg-gradient-to-r from-[#0F766E] to-[#14B8A6] text-white shadow-[0_0_30px_rgba(15,118,110,0.3)] hover:shadow-[0_0_40px_rgba(15,118,110,0.5)] hover:scale-[1.02]"
-            >
-              <UserCog className="w-5 h-5" />
-              Employee Login
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              to="/admin/login"
-              className="group inline-flex items-center gap-2.5 bg-white/[0.06] backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-2xl border border-white/[0.1] hover:bg-white/[0.1] hover:border-white/[0.2] transition-all duration-300 cursor-pointer hover:scale-[1.02]"
-            >
-              <ShieldCheck className="w-5 h-5" />
-              Admin Portal
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-
-          {/* Dashboard mockup */}
-          <div className="mt-20 relative">
-            <div className="absolute -inset-4 bg-gradient-to-t from-[#030712] via-transparent to-transparent z-10 pointer-events-none" />
-            <div className="relative rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm p-1 overflow-hidden">
-              <div className="rounded-xl bg-[#0A0F1A] p-4 sm:p-6">
-                {/* Fake dashboard header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-red-500/60" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/60" />
+            {/* Right — Product Preview Card */}
+            <div className="relative">
+              <div className="absolute -inset-4 bg-[#0F766E]/[0.04] rounded-3xl blur-2xl" />
+              <div className="relative bg-white rounded-2xl border border-[#E8EDED] shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden">
+                {/* Browser chrome */}
+                <div className="flex items-center gap-2 px-4 py-3 bg-[#F8FAFA] border-b border-[#E8EDED]">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#E8EDED]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#E8EDED]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#E8EDED]" />
                   </div>
-                  <div className="h-4 w-48 bg-white/[0.06] rounded-full" />
-                  <div className="flex gap-2">
-                    <div className="h-6 w-6 bg-white/[0.06] rounded" />
-                    <div className="h-6 w-6 bg-white/[0.06] rounded" />
+                  <div className="flex-1 mx-8">
+                    <div className="h-5 bg-white rounded-md border border-[#E8EDED] flex items-center px-3">
+                      <span className="text-[10px] text-[#134E4A]/30 font-medium">
+                        click4cuti.app/dashboard
+                      </span>
+                    </div>
                   </div>
                 </div>
-                {/* Fake stat cards */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                  {['Annual Leave', 'Sick Leave', 'Pending', 'Approved'].map(
-                    (label, i) => (
+
+                {/* Dashboard content */}
+                <div className="p-4 sm:p-5 space-y-4">
+                  {/* Stat cards */}
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      {
+                        label: 'Annual Leave',
+                        value: '12',
+                        sub: '/ 16 days',
+                        color: 'bg-[#0F766E]',
+                        pct: 75,
+                      },
+                      {
+                        label: 'Sick Leave',
+                        value: '8',
+                        sub: '/ 14 days',
+                        color: 'bg-[#0369A1]',
+                        pct: 57,
+                      },
+                      {
+                        label: 'Pending',
+                        value: '2',
+                        sub: 'requests',
+                        color: 'bg-amber-500',
+                        pct: 100,
+                      },
+                    ].map((card) => (
                       <div
-                        key={label}
-                        className="rounded-xl bg-white/[0.04] border border-white/[0.06] p-3 sm:p-4"
+                        key={card.label}
+                        className="rounded-xl bg-[#F8FAFA] border border-[#E8EDED] p-3"
                       >
-                        <div className="text-[10px] sm:text-xs text-white/40 mb-1">
-                          {label}
+                        <div className="text-[10px] font-medium text-[#134E4A]/40 mb-1">
+                          {card.label}
                         </div>
-                        <div className="text-lg sm:text-xl font-bold text-white/80">
-                          {[12, 8, 3, 24][i]}
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-xl font-bold text-[#134E4A]">
+                            {card.value}
+                          </span>
+                          <span className="text-[10px] text-[#134E4A]/30">
+                            {card.sub}
+                          </span>
                         </div>
-                        <div className="mt-2 h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
+                        <div className="mt-2 h-1 bg-[#E8EDED] rounded-full overflow-hidden">
                           <div
-                            className="h-full rounded-full bg-gradient-to-r from-[#0F766E] to-[#5EEAD4]"
-                            style={{ width: `${[65, 40, 25, 85][i]}%` }}
+                            className={`h-full rounded-full ${card.color}`}
+                            style={{ width: `${card.pct}%` }}
                           />
                         </div>
                       </div>
-                    )
-                  )}
-                </div>
-                {/* Fake table rows */}
-                <div className="space-y-2">
-                  {[1, 2, 3].map((row) => (
-                    <div
-                      key={row}
-                      className="flex items-center gap-3 rounded-lg bg-white/[0.02] border border-white/[0.04] px-4 py-3"
-                    >
-                      <div className="w-7 h-7 rounded-full bg-white/[0.08]" />
-                      <div className="flex-1 flex items-center gap-4">
-                        <div className="h-3 w-24 bg-white/[0.06] rounded" />
-                        <div className="h-3 w-16 bg-white/[0.04] rounded hidden sm:block" />
-                        <div className="h-3 w-20 bg-white/[0.04] rounded hidden sm:block" />
-                      </div>
-                      <div
-                        className={`h-5 w-16 rounded-full ${
-                          row === 1
-                            ? 'bg-[#5EEAD4]/15'
-                            : row === 2
-                              ? 'bg-yellow-500/15'
-                              : 'bg-[#5EEAD4]/10'
-                        }`}
-                      />
+                    ))}
+                  </div>
+
+                  {/* Recent activity */}
+                  <div>
+                    <div className="text-[10px] font-semibold text-[#134E4A]/40 uppercase tracking-wider mb-2">
+                      Recent Applications
                     </div>
-                  ))}
+                    <div className="space-y-2">
+                      {[
+                        {
+                          name: 'Ahmad R.',
+                          type: 'Annual Leave',
+                          days: '3 days',
+                          status: 'Approved',
+                          statusColor:
+                            'bg-[#0F766E]/10 text-[#0F766E] border-[#0F766E]/10',
+                        },
+                        {
+                          name: 'Siti N.',
+                          type: 'Medical Leave',
+                          days: '1 day',
+                          status: 'Pending',
+                          statusColor:
+                            'bg-amber-50 text-amber-700 border-amber-100',
+                        },
+                        {
+                          name: 'Farid K.',
+                          type: 'Annual Leave',
+                          days: '5 days',
+                          status: 'Approved',
+                          statusColor:
+                            'bg-[#0F766E]/10 text-[#0F766E] border-[#0F766E]/10',
+                        },
+                      ].map((row) => (
+                        <div
+                          key={row.name}
+                          className="flex items-center gap-3 rounded-lg bg-white border border-[#E8EDED] px-3 py-2.5"
+                        >
+                          <div className="w-7 h-7 rounded-full bg-[#0F766E]/10 flex items-center justify-center text-[10px] font-bold text-[#0F766E]">
+                            {row.name[0]}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-xs font-semibold text-[#134E4A]">
+                              {row.name}
+                            </div>
+                            <div className="text-[10px] text-[#134E4A]/40">
+                              {row.type} &middot; {row.days}
+                            </div>
+                          </div>
+                          <span
+                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${row.statusColor}`}
+                          >
+                            {row.status}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -232,21 +312,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="relative group text-center p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-[#5EEAD4]/20 transition-all duration-300"
-              >
-                <stat.icon className="w-5 h-5 text-[#5EEAD4]/60 mx-auto mb-3" />
-                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
-                  {stat.value}
-                </div>
-                <div className="mt-1 text-xs sm:text-sm text-white/40 font-medium">
-                  {stat.label}
+      {/* How It Works */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#134E4A] tracking-tight">
+              How It Works
+            </h2>
+            <p className="mt-3 text-[#134E4A]/50 max-w-md mx-auto">
+              Three simple steps to streamline your leave process.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {steps.map((item, i) => (
+              <div key={item.step} className="relative">
+                {i < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-10 left-[calc(50%+40px)] w-[calc(100%-80px)] h-px bg-[#0F766E]/15" />
+                )}
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white border border-[#E8EDED] shadow-sm mb-4">
+                    <item.icon className="w-7 h-7 text-[#0F766E]" />
+                  </div>
+                  <div className="text-[10px] font-bold text-[#0F766E]/40 uppercase tracking-widest mb-1.5">
+                    Step {item.step}
+                  </div>
+                  <h3 className="text-base font-semibold text-[#134E4A] mb-1.5">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-[#134E4A]/50 leading-relaxed max-w-xs mx-auto">
+                    {item.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -255,14 +351,14 @@ export default function HomePage() {
       </section>
 
       {/* Features — Bento Grid */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Everything You Need
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#134E4A] tracking-tight">
+              Built for Every Role
             </h2>
-            <p className="mt-4 text-white/40 max-w-lg mx-auto">
-              A complete leave management platform built for modern teams.
+            <p className="mt-3 text-[#134E4A]/50 max-w-md mx-auto">
+              A complete platform from individual employees to super admins.
             </p>
           </div>
 
@@ -270,15 +366,17 @@ export default function HomePage() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className={`group relative p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-[#5EEAD4]/20 hover:bg-white/[0.05] transition-all duration-300 ${feature.span}`}
+                className={`group relative rounded-2xl bg-[#F8FAFA] border border-[#E8EDED] p-6 hover:border-[#0F766E]/20 hover:shadow-[0_4px_16px_rgba(15,118,110,0.06)] transition-all duration-200 ${feature.colSpan}`}
               >
-                <div className="w-10 h-10 rounded-xl bg-[#5EEAD4]/10 border border-[#5EEAD4]/10 flex items-center justify-center mb-4 group-hover:bg-[#5EEAD4]/15 transition-colors">
-                  <feature.icon className="w-5 h-5 text-[#5EEAD4]" />
+                <div
+                  className={`w-10 h-10 rounded-xl ${feature.accent} flex items-center justify-center mb-4`}
+                >
+                  <feature.icon className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-base font-semibold text-white/90">
+                <h3 className="text-sm font-semibold text-[#134E4A]">
                   {feature.title}
                 </h3>
-                <p className="mt-1.5 text-sm text-white/40 leading-relaxed">
+                <p className="mt-1.5 text-sm text-[#134E4A]/45 leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -287,52 +385,104 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F766E]/20 to-[#5EEAD4]/10 rounded-3xl blur-xl" />
-          <div className="relative rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm p-10 sm:p-16 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Ready to Get Started?
+      {/* Portal Cards */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#134E4A] tracking-tight">
+              Choose Your Portal
             </h2>
-            <p className="mt-4 text-lg text-white/40 max-w-xl mx-auto">
-              Choose your portal below. Employees apply for leave, admins manage
-              the entire system.
+            <p className="mt-3 text-[#134E4A]/50 max-w-md mx-auto">
+              Select the right entry point based on your role.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to="/login"
-                className="group inline-flex items-center gap-2.5 bg-gradient-to-r from-[#0F766E] to-[#14B8A6] text-white font-semibold px-8 py-4 rounded-2xl shadow-[0_0_30px_rgba(15,118,110,0.3)] hover:shadow-[0_0_40px_rgba(15,118,110,0.5)] transition-all duration-300 cursor-pointer hover:scale-[1.02]"
-              >
-                <UserCog className="w-5 h-5" />
-                Employee Login
-                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-              <Link
-                to="/admin/login"
-                className="group inline-flex items-center gap-2.5 bg-white/[0.06] text-white font-semibold px-8 py-4 rounded-2xl border border-white/[0.1] hover:bg-white/[0.1] hover:border-white/[0.2] transition-all duration-300 cursor-pointer hover:scale-[1.02]"
-              >
-                <ShieldCheck className="w-5 h-5" />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {/* Employee Card */}
+            <Link
+              to="/login"
+              className="group relative rounded-2xl bg-white border border-[#E8EDED] p-8 hover:border-[#0F766E]/30 hover:shadow-[0_8px_32px_rgba(15,118,110,0.08)] transition-all duration-200 cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#0F766E] flex items-center justify-center mb-5">
+                <UserCog className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-[#134E4A] mb-2">
+                Employee Portal
+              </h3>
+              <p className="text-sm text-[#134E4A]/50 leading-relaxed mb-6">
+                Apply for leave, check your balances, view team calendars, and
+                track request status.
+              </p>
+              <div className="space-y-2 mb-6">
+                {[
+                  'Apply & track leave requests',
+                  'View leave balances',
+                  'Team availability calendar',
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-2 text-sm text-[#134E4A]/60"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#0F766E] shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0F766E] group-hover:gap-2.5 transition-all">
+                Sign in as Employee
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </Link>
+
+            {/* Admin Card */}
+            <Link
+              to="/admin/login"
+              className="group relative rounded-2xl bg-white border border-[#E8EDED] p-8 hover:border-[#0369A1]/30 hover:shadow-[0_8px_32px_rgba(3,105,161,0.08)] transition-all duration-200 cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#0369A1] flex items-center justify-center mb-5">
+                <ShieldCheck className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-[#134E4A] mb-2">
                 Admin Portal
-                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
+              </h3>
+              <p className="text-sm text-[#134E4A]/50 leading-relaxed mb-6">
+                Manage users, configure policies, oversee all leave applications
+                across the organization.
+              </p>
+              <div className="space-y-2 mb-6">
+                {[
+                  'User & role management',
+                  'Leave policy configuration',
+                  'Company & agency oversight',
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-2 text-sm text-[#134E4A]/60"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#0369A1] shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0369A1] group-hover:gap-2.5 transition-all">
+                Sign in as Admin
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-white/[0.06]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-t border-[#E8EDED]">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded bg-gradient-to-br from-[#0F766E] to-[#5EEAD4] flex items-center justify-center">
-              <CalendarDays className="w-3.5 h-3.5 text-white" />
+            <div className="w-7 h-7 rounded-lg bg-[#0F766E] flex items-center justify-center">
+              <CalendarDays className="w-4 h-4 text-white" />
             </div>
-            <span className="text-sm font-semibold text-white/70">
-              Click4Cuti
-            </span>
+            <span className="text-sm font-bold text-[#134E4A]">Click4Cuti</span>
           </div>
-          <p className="text-sm text-white/30">
+          <p className="text-xs text-[#134E4A]/35">
             &copy; {new Date().getFullYear()} Click4Cuti. All rights reserved.
           </p>
         </div>
