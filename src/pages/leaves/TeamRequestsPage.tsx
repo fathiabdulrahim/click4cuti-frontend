@@ -14,7 +14,7 @@ export default function TeamRequestsPage() {
   const { data: requests, isLoading } = useTeamRequests()
   const updateRequest = useUpdateTeamRequest()
   const addToast = useNotificationStore((s) => s.addToast)
-  const [remarks, setRemarks] = useState<Record<string, string>>({})
+  const [remarks] = useState<Record<string, string>>({})
 
   const handleAction = (id: string, status: 'APPROVED' | 'REJECTED') => {
     updateRequest.mutate(

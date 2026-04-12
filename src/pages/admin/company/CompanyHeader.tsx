@@ -34,7 +34,7 @@ import {
   CalendarDays,
 } from 'lucide-react'
 import { InfoTile, safeFormatDate, MONTH_NAMES } from './shared'
-import type { Company, Agency } from '@/lib/types'
+import type { Company } from '@/lib/types'
 
 const companySchema = z.object({
   name: z.string().min(1, 'Name is required'),

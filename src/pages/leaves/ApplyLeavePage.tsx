@@ -11,7 +11,7 @@ import { DatePicker } from '@/components/ui/date-picker'
 import { Combobox } from '@/components/ui/combobox'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { cn } from '@/lib/utils'
-import { format, eachDayOfInterval, isWeekend, differenceInCalendarDays } from 'date-fns'
+import { format, eachDayOfInterval, isWeekend } from 'date-fns'
 import type { DayType } from '@/lib/types'
 import {
   ArrowLeft,
