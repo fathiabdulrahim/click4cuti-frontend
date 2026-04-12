@@ -6,6 +6,7 @@ import { ScopeGuard } from './router/ScopeGuard'
 import { AppLayout } from './components/layout/AppLayout'
 import { Toaster } from './components/ui/toaster'
 
+import HomePage from './pages/HomePage'
 import LoginPage from './pages/auth/LoginPage'
 import AdminLoginPage from './pages/auth/AdminLoginPage'
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
@@ -70,8 +71,8 @@ export default function App() {
           </Route>
         </Route>
 
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Toaster />
     </>
