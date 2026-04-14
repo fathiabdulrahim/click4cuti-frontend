@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
-  CalendarDays,
   Eye,
   EyeOff,
   Loader2,
@@ -47,28 +46,29 @@ export default function LoginPage() {
 
   return (
     <div className="grid min-h-screen lg:grid-cols-5">
-      {/* Left panel - Branding (3/5 width) */}
-      <div className="hidden lg:flex lg:col-span-3 flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#0F766E] via-[#0D6B63] to-[#134E4A] p-12 text-white">
+      {/* Left panel - Branding */}
+      <div className="hidden lg:flex lg:col-span-3 flex-col justify-between relative overflow-hidden bg-[#FE4E01] p-12 text-white">
         {/* Decorative elements */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-white/5" />
-          <div className="absolute top-1/3 -left-16 h-64 w-64 rounded-full bg-white/5" />
-          <div className="absolute bottom-20 right-1/4 h-48 w-48 rounded-full bg-white/[0.03]" />
+          <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-white/[0.06]" />
+          <div className="absolute top-1/3 -left-16 h-64 w-64 rounded-full bg-white/[0.06]" />
+          <div className="absolute bottom-20 right-1/4 h-48 w-48 rounded-full bg-black/[0.04]" />
           <div className="absolute top-1/2 right-12 h-32 w-32 rounded-full border border-white/10" />
         </div>
 
         {/* Logo */}
-        <div className="relative flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm">
-            <CalendarDays className="h-6 w-6" />
-          </div>
-          <span className="text-xl font-semibold tracking-tight">Click4Cuti</span>
+        <div className="relative">
+          <img
+            src="/logo-navbar-white.svg"
+            alt="Click4Cuti"
+            className="h-8"
+          />
         </div>
 
         {/* Hero content */}
         <div className="relative space-y-8">
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold leading-tight tracking-tight xl:text-5xl">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight xl:text-5xl">
               Leave management,
               <br />
               <span className="text-white/80">made effortless.</span>
@@ -79,17 +79,17 @@ export default function LoginPage() {
           </div>
 
           {/* Feature grid */}
-          <div className="grid grid-cols-2 gap-4 max-w-lg">
+          <div className="grid grid-cols-2 gap-3 max-w-lg">
             {features.map((f) => (
               <div
                 key={f.title}
-                className="flex items-start gap-3 rounded-xl bg-white/[0.08] p-4 backdrop-blur-sm"
+                className="flex items-start gap-3 rounded-xl bg-white/10 p-4"
               >
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/15">
                   <f.icon className="h-4.5 w-4.5" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">{f.title}</p>
+                  <p className="text-sm font-semibold">{f.title}</p>
                   <p className="text-xs text-white/60">{f.desc}</p>
                 </div>
               </div>
@@ -98,25 +98,26 @@ export default function LoginPage() {
         </div>
 
         {/* Footer */}
-        <p className="relative text-sm text-white/40">
+        <p className="relative text-sm text-white/50">
           &copy; {new Date().getFullYear()} Click4Cuti. All rights reserved.
         </p>
       </div>
 
-      {/* Right panel - Form (2/5 width) */}
-      <div className="flex flex-col lg:col-span-2 items-center justify-center px-6 py-12 bg-[#FAFBFC]">
+      {/* Right panel - Form */}
+      <div className="flex flex-col lg:col-span-2 items-center justify-center px-6 py-12 bg-white">
         {/* Mobile logo */}
-        <div className="mb-10 flex items-center gap-3 lg:hidden">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0F766E] text-white">
-            <CalendarDays className="h-6 w-6" />
-          </div>
-          <span className="text-xl font-semibold tracking-tight">Click4Cuti</span>
+        <div className="mb-10 lg:hidden">
+          <img
+            src="/logo-navbar.svg"
+            alt="Click4Cuti"
+            className="h-8"
+          />
         </div>
 
         <div className="w-full max-w-sm space-y-8">
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold tracking-tight">Welcome back</h2>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900">Welcome back</h2>
+            <p className="text-sm text-gray-500">
               Sign in to access your leave dashboard
             </p>
           </div>
@@ -142,7 +143,7 @@ export default function LoginPage() {
                 <Label htmlFor="password">Password</Label>
                 <Link
                   to="/forgot-password"
-                  className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+                  className="text-xs font-medium text-gray-400 hover:text-[#FE4E01] transition-colors cursor-pointer"
                 >
                   Forgot password?
                 </Link>
@@ -163,7 +164,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
                   tabIndex={-1}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
@@ -180,15 +181,15 @@ export default function LoginPage() {
             </div>
 
             {login.error && (
-              <div className="flex items-center gap-2 rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
-                <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
+              <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-600">
+                <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-red-500" />
                 Invalid email or password
               </div>
             )}
 
             <Button
               type="submit"
-              className="w-full h-10 cursor-pointer font-medium"
+              className="w-full h-11 cursor-pointer font-semibold bg-[#FE4E01] hover:bg-[#E54400] text-white transition-colors"
               disabled={login.isPending}
             >
               {login.isPending ? (
@@ -202,8 +203,7 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          {/* Divider */}
-          <div className="text-center text-xs text-muted-foreground/60">
+          <div className="text-center text-xs text-gray-400">
             Secure login powered by Click4Cuti
           </div>
         </div>

@@ -1,51 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @import "tailwindcss";
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 210 20% 10%;
+    --foreground: 20 15% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 210 20% 10%;
+    --card-foreground: 20 15% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 210 20% 10%;
-    --primary: 173 77% 26%;
+    --popover-foreground: 20 15% 10%;
+    --primary: 19 99% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 210 20% 10%;
-    --muted: 210 20% 96%;
-    --muted-foreground: 210 12% 45%;
-    --accent: 210 20% 96%;
-    --accent-foreground: 210 20% 10%;
+    --secondary: 20 15% 96%;
+    --secondary-foreground: 20 15% 10%;
+    --muted: 20 15% 96%;
+    --muted-foreground: 20 8% 45%;
+    --accent: 20 15% 96%;
+    --accent-foreground: 20 15% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214 20% 91%;
-    --input: 214 20% 91%;
-    --ring: 173 77% 26%;
+    --border: 20 15% 91%;
+    --input: 20 15% 91%;
+    --ring: 19 99% 50%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 210 20% 6%;
-    --foreground: 210 20% 96%;
-    --card: 210 20% 8%;
-    --card-foreground: 210 20% 96%;
-    --popover: 210 20% 8%;
-    --popover-foreground: 210 20% 96%;
-    --primary: 173 60% 40%;
+    --background: 20 15% 6%;
+    --foreground: 20 15% 96%;
+    --card: 20 15% 8%;
+    --card-foreground: 20 15% 96%;
+    --popover: 20 15% 8%;
+    --popover-foreground: 20 15% 96%;
+    --primary: 19 99% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 20% 14%;
-    --secondary-foreground: 210 20% 96%;
-    --muted: 210 20% 14%;
-    --muted-foreground: 210 12% 60%;
-    --accent: 210 20% 14%;
-    --accent-foreground: 210 20% 96%;
+    --secondary: 20 15% 14%;
+    --secondary-foreground: 20 15% 96%;
+    --muted: 20 15% 14%;
+    --muted-foreground: 20 8% 60%;
+    --accent: 20 15% 14%;
+    --accent-foreground: 20 15% 96%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 210 20% 18%;
-    --input: 210 20% 18%;
-    --ring: 173 60% 40%;
+    --border: 20 15% 18%;
+    --input: 20 15% 18%;
+    --ring: 19 99% 55%;
   }
 }
 
@@ -56,6 +56,6 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 }
