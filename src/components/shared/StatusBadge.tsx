@@ -9,6 +9,9 @@ const statusConfig: Record<LeaveStatus, { label: string; variant: 'default' | 's
 }
 
 export function StatusBadge({ status }: { status: LeaveStatus }) {
-  const config = statusConfig[status]
+  const config = statusConfig[status] ?? {
+    label: typeof status === 'string' && status.length > 0 ? status : 'Unknown',
+    variant: 'secondary' as const,
+  }
   return <Badge variant={config.variant}>{config.label}</Badge>
 }
