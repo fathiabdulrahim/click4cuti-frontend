@@ -89,7 +89,7 @@ export default function UserManagementPage() {
                         variant="outline"
                         className={
                           user.role === 'ADMIN'
-                            ? 'border-[#0F766E]/30 text-[#0F766E] bg-[#0F766E]/5'
+                            ? 'border-[#FE4E01]/30 text-[#FE4E01] bg-[#FE4E01]/5'
                             : user.role === 'MANAGER'
                               ? 'border-blue-200 text-blue-700 bg-blue-50'
                               : ''

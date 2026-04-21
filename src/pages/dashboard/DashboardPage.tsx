@@ -36,7 +36,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome banner */}
-      <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#0F766E] to-[#0D9488] p-6 text-white">
+      <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#FE4E01] to-[#0D9488] p-6 text-white">
         <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-white/10" />
         <div className="pointer-events-none absolute right-16 bottom-0 h-24 w-24 rounded-full bg-white/5" />
         <div className="relative flex items-center justify-between">
@@ -47,7 +47,7 @@ export default function DashboardPage() {
           </div>
           <Button
             asChild
-            className="bg-white text-[#0F766E] hover:bg-white/90 font-medium cursor-pointer"
+            className="bg-white text-[#FE4E01] hover:bg-white/90 font-medium cursor-pointer"
           >
             <Link to="/leaves/apply">
               <CalendarPlus className="mr-2 h-4 w-4" />
@@ -76,8 +76,8 @@ export default function DashboardPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0F766E]/10">
-                    <Icon className="h-5 w-5 text-[#0F766E]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FE4E01]/10">
+                    <Icon className="h-5 w-5 text-[#FE4E01]" />
                   </div>
                 </div>
                 {/* Usage bar */}
@@ -88,7 +88,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-[#0F766E] transition-all"
+                      className="h-full rounded-full bg-[#FE4E01] transition-all"
                       style={{
                         width: `${balance.total > 0 ? ((balance.used / balance.total) * 100) : 0}%`,
                       }}
@@ -131,7 +131,7 @@ export default function DashboardPage() {
             <CardTitle className="text-base font-semibold">Recent Applications</CardTitle>
             <Link
               to="/leaves"
-              className="inline-flex items-center gap-1 text-xs font-medium text-[#0F766E] hover:underline"
+              className="inline-flex items-center gap-1 text-xs font-medium text-[#FE4E01] hover:underline"
             >
               View all <ArrowRight className="h-3 w-3" />
             </Link>

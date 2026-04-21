@@ -139,7 +139,7 @@ export function CompanyHeader({ company, agencyName }: CompanyHeaderProps) {
             <InfoTile icon={Mail} color="bg-blue-50 text-blue-600" label="HR Email" value={company.hr_email} />
             <InfoTile icon={Phone} color="bg-indigo-50 text-indigo-600" label="Phone" value={company.phone} />
             <InfoTile icon={FileText} color="bg-slate-50 text-slate-600" label="Reg. No." value={company.registration_number} />
-            <InfoTile icon={Shield} color="bg-[#0F766E]/10 text-[#0F766E]" label="Agency" value={agencyName || 'None'} />
+            <InfoTile icon={Shield} color="bg-[#FE4E01]/10 text-[#FE4E01]" label="Agency" value={agencyName || 'None'} />
           </div>
 
           {/* Info grid — row 2 */}

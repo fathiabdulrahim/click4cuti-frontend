@@ -146,8 +146,8 @@ export default function AgencyManagementPage() {
                   <TableRow key={agency.id} className="group">
                     <TableCell className="pl-6">
                       <Link to={`/admin/agencies/${agency.id}`} className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0F766E]/10">
-                          <Shield className="h-4 w-4 text-[#0F766E]" />
+                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#FE4E01]/10">
+                          <Shield className="h-4 w-4 text-[#FE4E01]" />
                         </div>
                         <span className="font-medium hover:underline">{agency.name}</span>
                       </Link>

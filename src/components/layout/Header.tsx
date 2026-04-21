@@ -23,14 +23,14 @@ export function Header() {
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="icon" className="relative cursor-pointer hover:bg-muted">
           <Bell className="h-5 w-5 text-muted-foreground" />
-          <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-[#0F766E]" />
+          <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-[#FE4E01]" />
         </Button>
 
         <div className="h-8 w-px bg-border mx-1" />
 
         <div className="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-muted transition-colors cursor-pointer">
           <Avatar className="h-8 w-8">
-            <AvatarFallback className="text-xs bg-[#0F766E]/10 text-[#0F766E] font-medium">
+            <AvatarFallback className="text-xs bg-[#FE4E01]/10 text-[#FE4E01] font-medium">
               {displayName ? getInitials(displayName) : 'U'}
             </AvatarFallback>
           </Avatar>

@@ -95,7 +95,7 @@ export function Combobox({
                   )}
                 >
                   {value === option.value && (
-                    <Check className="absolute left-2 h-4 w-4 text-[#0F766E]" />
+                    <Check className="absolute left-2 h-4 w-4 text-[#FE4E01]" />
                   )}
                   {option.label}
                 </button>

@@ -58,12 +58,12 @@ export function Sidebar() {
           {isOpen ? <ChevronLeft className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
         {isOpen && (
-          <div className="ml-2 flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0F766E] text-white">
-              <CalendarDays className="h-3.5 w-3.5" />
-            </div>
-            <span className="font-semibold text-[#0F766E] tracking-tight">Click4Cuti</span>
+          <div className="ml-2 flex items-center">
+            <img src="/logo-navbar.svg" alt="Click4Cuti" className="h-[22px]" />
           </div>
+        )}
+        {!isOpen && (
+          <img src="/logo-icon.svg" alt="Click4Cuti" className="h-6 w-6 ml-2" />
         )}
       </div>
 
@@ -151,7 +151,7 @@ function SidebarLink({
         cn(
           'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors',
           isActive
-            ? 'bg-[#0F766E]/10 text-[#0F766E] font-medium'
+            ? 'bg-[#FE4E01]/10 text-[#FE4E01] font-medium'
             : 'text-muted-foreground hover:bg-muted hover:text-foreground',
           !isOpen && 'justify-center px-0'
         )

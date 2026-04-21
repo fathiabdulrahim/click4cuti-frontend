@@ -119,7 +119,7 @@ export const DesignationsTab = forwardRef<DesignationsTabHandle, DesignationsTab
                       </TableCell>
                       <TableCell>
                         {desig.is_manager ? (
-                          <Badge variant="outline" className="border-[#0F766E]/30 text-[#0F766E] bg-[#0F766E]/5">
+                          <Badge variant="outline" className="border-[#FE4E01]/30 text-[#FE4E01] bg-[#FE4E01]/5">
                             Yes
                           </Badge>
                         ) : (

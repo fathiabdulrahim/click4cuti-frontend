@@ -38,7 +38,7 @@ export default function AdminDashboardPage() {
       label: 'Total Employees',
       value: stats?.total_employees ?? 0,
       icon: Users,
-      color: 'bg-[#0F766E]/10 text-[#0F766E]',
+      color: 'bg-[#FE4E01]/10 text-[#FE4E01]',
     },
     {
       label: 'Pending Approvals',
@@ -64,8 +64,8 @@ export default function AdminDashboardPage() {
     <div className="space-y-6">
       {/* Welcome banner */}
       <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#0F172A] via-[#1E293B] to-[#0F172A] px-6 py-6">
-        <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-[#0F766E]/15" />
-        <div className="pointer-events-none absolute bottom-0 right-1/4 h-20 w-20 rounded-full bg-[#0F766E]/10" />
+        <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-[#FE4E01]/15" />
+        <div className="pointer-events-none absolute bottom-0 right-1/4 h-20 w-20 rounded-full bg-[#FE4E01]/10" />
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.03]"
           style={{
@@ -111,8 +111,8 @@ export default function AdminDashboardPage() {
           <Card className="border-0 shadow-sm bg-white">
             <CardHeader className="flex flex-row items-center justify-between pb-4">
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0F766E]/10">
-                  <Shield className="h-4 w-4 text-[#0F766E]" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FE4E01]/10">
+                  <Shield className="h-4 w-4 text-[#FE4E01]" />
                 </div>
                 <div>
                   <CardTitle className="text-base font-semibold">Agencies</CardTitle>
@@ -123,7 +123,7 @@ export default function AdminDashboardPage() {
               </div>
               <Link
                 to="/admin/agencies"
-                className="inline-flex items-center gap-1 text-xs font-medium text-[#0F766E] hover:underline"
+                className="inline-flex items-center gap-1 text-xs font-medium text-[#FE4E01] hover:underline"
               >
                 View all <ArrowRight className="h-3 w-3" />
               </Link>
@@ -152,8 +152,8 @@ export default function AdminDashboardPage() {
                         className="flex items-center justify-between rounded-lg border border-border/60 px-4 py-3 hover:bg-muted/30 transition-colors cursor-pointer"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0F766E]/10">
-                            <Shield className="h-4 w-4 text-[#0F766E]" />
+                          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#FE4E01]/10">
+                            <Shield className="h-4 w-4 text-[#FE4E01]" />
                           </div>
                           <div>
                             <p className="text-sm font-medium">{agency.name}</p>
@@ -190,7 +190,7 @@ export default function AdminDashboardPage() {
               </div>
               <Link
                 to="/admin/companies"
-                className="inline-flex items-center gap-1 text-xs font-medium text-[#0F766E] hover:underline"
+                className="inline-flex items-center gap-1 text-xs font-medium text-[#FE4E01] hover:underline"
               >
                 View all <ArrowRight className="h-3 w-3" />
               </Link>
@@ -247,7 +247,7 @@ export default function AdminDashboardPage() {
           <CardTitle className="text-base font-semibold">Recent Applications</CardTitle>
           <Link
             to="/admin/leaves"
-            className="inline-flex items-center gap-1 text-xs font-medium text-[#0F766E] hover:underline"
+            className="inline-flex items-center gap-1 text-xs font-medium text-[#FE4E01] hover:underline"
           >
             View all <ArrowRight className="h-3 w-3" />
           </Link>

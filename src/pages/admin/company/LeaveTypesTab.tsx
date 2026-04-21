@@ -162,7 +162,7 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
                     </TableCell>
                     <TableCell>
                       {lt.allows_half_day ? (
-                        <Badge variant="outline" className="border-[#0F766E]/30 text-[#0F766E] bg-[#0F766E]/5">Yes</Badge>
+                        <Badge variant="outline" className="border-[#FE4E01]/30 text-[#FE4E01] bg-[#FE4E01]/5">Yes</Badge>
                       ) : (
                         <span className="text-muted-foreground text-sm">No</span>
                       )}
@@ -280,7 +280,7 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
                     id="lt-halfd"
                     checked={ltAllowsHalf}
                     onChange={(e) => { setLtAllowsHalf(e.target.checked); ltForm.setValue('allows_half_day', e.target.checked) }}
-                    className="h-4 w-4 rounded border-gray-300 text-[#0F766E] focus:ring-[#0F766E] cursor-pointer"
+                    className="h-4 w-4 rounded border-gray-300 text-[#FE4E01] focus:ring-[#FE4E01] cursor-pointer"
                   />
                   <Label htmlFor="lt-halfd" className="cursor-pointer">Allows half-day leave</Label>
                 </div>
@@ -290,7 +290,7 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
                     id="lt-doc"
                     checked={ltRequiresDoc}
                     onChange={(e) => { setLtRequiresDoc(e.target.checked); ltForm.setValue('requires_document', e.target.checked) }}
-                    className="h-4 w-4 rounded border-gray-300 text-[#0F766E] focus:ring-[#0F766E] cursor-pointer"
+                    className="h-4 w-4 rounded border-gray-300 text-[#FE4E01] focus:ring-[#FE4E01] cursor-pointer"
                   />
                   <Label htmlFor="lt-doc" className="cursor-pointer">Requires supporting document</Label>
                 </div>
@@ -300,7 +300,7 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
                     id="lt-carry"
                     checked={ltAllowsCarry}
                     onChange={(e) => { setLtAllowsCarry(e.target.checked); ltForm.setValue('allows_carry_forward', e.target.checked) }}
-                    className="h-4 w-4 rounded border-gray-300 text-[#0F766E] focus:ring-[#0F766E] cursor-pointer"
+                    className="h-4 w-4 rounded border-gray-300 text-[#FE4E01] focus:ring-[#FE4E01] cursor-pointer"
                   />
                   <Label htmlFor="lt-carry" className="cursor-pointer">Allows carry forward to next year</Label>
                 </div>

@@ -33,7 +33,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-5">
       {/* Left panel - Branding (3/5 width) */}
-      <div className="hidden lg:flex lg:col-span-3 flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#0F766E] via-[#0D6B63] to-[#134E4A] p-12 text-white">
+      <div className="hidden lg:flex lg:col-span-3 flex-col justify-between relative overflow-hidden bg-gradient-to-br from-[#FE4E01] via-[#0D6B63] to-[#134E4A] p-12 text-white">
         {/* Decorative elements */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-white/5" />
@@ -77,7 +77,7 @@ export default function ForgotPasswordPage() {
       <div className="flex flex-col lg:col-span-2 items-center justify-center px-6 py-12 bg-[#FAFBFC]">
         {/* Mobile logo */}
         <div className="mb-10 flex items-center gap-3 lg:hidden">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0F766E] text-white">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FE4E01] text-white">
             <CalendarDays className="h-6 w-6" />
           </div>
           <span className="text-xl font-semibold tracking-tight">Click4Cuti</span>
@@ -88,8 +88,8 @@ export default function ForgotPasswordPage() {
             /* Success state */
             <div className="space-y-8">
               <div className="flex flex-col items-center space-y-4 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#0F766E]/10">
-                  <MailCheck className="h-8 w-8 text-[#0F766E]" />
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FE4E01]/10">
+                  <MailCheck className="h-8 w-8 text-[#FE4E01]" />
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-2xl font-bold tracking-tight">Check your email</h2>

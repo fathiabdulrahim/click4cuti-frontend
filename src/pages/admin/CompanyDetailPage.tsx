@@ -118,7 +118,7 @@ export default function CompanyDetailPage() {
       {/* Stats row */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Employees', value: employees.length, color: 'bg-[#0F766E]/10 text-[#0F766E]', icon: Users },
+          { label: 'Employees', value: employees.length, color: 'bg-[#FE4E01]/10 text-[#FE4E01]', icon: Users },
           { label: 'Departments', value: departments.length, color: 'bg-purple-50 text-purple-600', icon: FolderTree },
           { label: 'Designations', value: designations.length, color: 'bg-blue-50 text-blue-600', icon: Briefcase },
           { label: 'Leave Types', value: leaveTypes.length, color: 'bg-teal-50 text-teal-600', icon: ListChecks },

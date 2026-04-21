@@ -30,8 +30,8 @@ export default function PolicyManagementPage() {
               <CardContent className="p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0F766E]/10">
-                      <FileText className="h-5 w-5 text-[#0F766E]" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FE4E01]/10">
+                      <FileText className="h-5 w-5 text-[#FE4E01]" />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold">{policy.name}</h3>

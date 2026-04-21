@@ -143,7 +143,7 @@ export default function AgencyDetailPage() {
       <Card className="border-0 shadow-sm bg-white overflow-hidden">
         <CardContent className="p-0">
           {/* Banner with title inside */}
-          <div className="relative bg-gradient-to-r from-[#0F766E] to-[#0D9488] px-6 py-6 overflow-hidden">
+          <div className="relative bg-gradient-to-r from-[#FE4E01] to-[#0D9488] px-6 py-6 overflow-hidden">
             {/* Decorative circles */}
             <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10" />
             <div className="pointer-events-none absolute bottom-0 right-1/3 h-24 w-24 rounded-full bg-white/5" />
