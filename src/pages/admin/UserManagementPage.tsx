@@ -4,6 +4,7 @@ import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   Table,
@@ -14,11 +15,14 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { formatDate } from '@/lib/utils'
-import { Search, Users } from 'lucide-react'
+import { Search, Users, UserCog } from 'lucide-react'
+import { ManageApproversDialog } from '@/components/admin/ManageApproversDialog'
+import type { User } from '@/lib/types'
 
 export default function UserManagementPage() {
   const { data: users, isLoading } = useAdminUsers()
   const [search, setSearch] = useState('')
+  const [approverTarget, setApproverTarget] = useState<User | null>(null)
 
   const filtered = users?.filter(
     (u) =>
@@ -65,6 +69,7 @@ export default function UserManagementPage() {
                   <TableHead>Department</TableHead>
                   <TableHead>Join Date</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead className="pr-6 text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -109,6 +114,17 @@ export default function UserManagementPage() {
                         {user.is_active ? 'Active' : 'Inactive'}
                       </Badge>
                     </TableCell>
+                    <TableCell className="pr-6 text-right">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-8 cursor-pointer"
+                        onClick={() => setApproverTarget(user)}
+                      >
+                        <UserCog className="h-3.5 w-3.5 mr-1" />
+                        Approvers
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -123,6 +139,15 @@ export default function UserManagementPage() {
           <Users className="h-4 w-4" />
           {filtered?.length} of {users.length} users
         </div>
+      )}
+
+      {approverTarget && users && (
+        <ManageApproversDialog
+          user={approverTarget}
+          candidates={users}
+          open={!!approverTarget}
+          onOpenChange={(o) => !o && setApproverTarget(null)}
+        />
       )}
     </div>
   )

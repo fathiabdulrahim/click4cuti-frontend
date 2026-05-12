@@ -26,6 +26,8 @@ export interface User {
   department?: Department
   designation?: Designation
   manager?: User
+  leave_approver_ids?: string[]
+  leave_approvers?: User[]
   created_at?: string
   updated_at?: string
 }
@@ -143,8 +145,9 @@ export interface LeaveApplication {
   status: LeaveStatus
   reviewer_remarks?: string
   requires_ceo_approval: boolean
-  approved_by?: string
-  approver?: User
+  approver_id?: string
+  approver_type?: 'User' | 'AdminUser'
+  approver?: { id: string; full_name: string; email: string; type: 'User' | 'AdminUser' }
   leave_day_details?: LeaveDayDetail[]
   created_at: string
   updated_at: string

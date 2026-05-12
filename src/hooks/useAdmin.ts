@@ -171,6 +171,14 @@ export function useAdminLeaveApplications(params?: Record<string, string>) {
   })
 }
 
+export function useAdminLeaveApplication(id: string) {
+  return useQuery({
+    queryKey: ['admin', 'leave_applications', id],
+    queryFn: () => adminLeaveApplicationsApi.getOne(id).then((r) => r.data),
+    enabled: !!id,
+  })
+}
+
 export function useUpdateLeaveApplication() {
   const qc = useQueryClient()
   return useMutation({
