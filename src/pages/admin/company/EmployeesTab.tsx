@@ -1,4 +1,5 @@
 import { useState, forwardRef, useImperativeHandle } from 'react'
+import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -26,15 +27,19 @@ import {
 } from '@/components/ui/table'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { formatDate, getInitials } from '@/lib/utils'
-import { Users, Loader2 } from 'lucide-react'
+import { Users, Loader2, Eye } from 'lucide-react'
 import { EmptyTab } from './shared'
 import type { User } from '@/lib/types'
 
 const userSchema = z.object({
-  full_name: z.string().min(1, 'Name is required'),
+  first_name: z.string().min(1, 'First name is required'),
+  last_name: z.string().optional(),
   email: z.string().email('Invalid email'),
   password: z.string().min(8, 'Minimum 8 characters'),
   role: z.string().min(1, 'Role is required'),
+  employee_type: z
+    .enum(['PERMANENT', 'CONTRACT', 'PROBATION', 'INTERNSHIP', 'FREELANCE', 'PART_TIME', 'OJT', 'SL1M_OJT'])
+    .optional(),
   employee_id: z.string().optional(),
   phone: z.string().optional(),
   join_date: z.string().optional(),
@@ -59,7 +64,11 @@ export const EmployeesTab = forwardRef<EmployeesTabHandle, EmployeesTabProps>(
 
     const [userOpen, setUserOpen] = useState(false)
     const [selectedRole, setSelectedRole] = useState('')
-    const userForm = useForm<UserFormValues>({ resolver: zodResolver(userSchema) })
+    const [selectedEmployeeType, setSelectedEmployeeType] = useState<string>('PERMANENT')
+    const userForm = useForm<UserFormValues>({
+      resolver: zodResolver(userSchema),
+      defaultValues: { employee_type: 'PERMANENT' },
+    })
 
     const q = search.toLowerCase()
     const filtered = employees.filter((u) => u.full_name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q))
@@ -67,14 +76,32 @@ export const EmployeesTab = forwardRef<EmployeesTabHandle, EmployeesTabProps>(
     useImperativeHandle(ref, () => ({
       openCreate() {
         setSelectedRole('')
-        userForm.reset({ full_name: '', email: '', password: '', role: '', employee_id: '', phone: '', join_date: '' })
+        setSelectedEmployeeType('PERMANENT')
+        userForm.reset({
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          role: '',
+          employee_type: 'PERMANENT',
+          employee_id: '',
+          phone: '',
+          join_date: '',
+        })
         setUserOpen(true)
       },
     }))
 
     const onUserSubmit = (data: UserFormValues) => {
+      const fullName = [data.first_name, data.last_name].filter(Boolean).join(' ').trim()
       const payload = {
-        ...data,
+        full_name: fullName,
+        first_name: data.first_name,
+        last_name: data.last_name || undefined,
+        email: data.email,
+        password: data.password,
+        role: data.role,
+        employee_type: data.employee_type,
         company_id: companyId,
         employee_id: data.employee_id || undefined,
         phone: data.phone || undefined,
@@ -102,18 +129,22 @@ export const EmployeesTab = forwardRef<EmployeesTabHandle, EmployeesTabProps>(
                   <TableHead>Department</TableHead>
                   <TableHead>Join Date</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead className="text-right pr-4">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filtered.map((user) => (
                   <TableRow key={user.id}>
                     <TableCell className="pl-4">
-                      <div className="flex items-center gap-3">
+                      <Link
+                        to={`/admin/users/${user.id}`}
+                        className="flex items-center gap-3 hover:text-primary transition-colors"
+                      >
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs font-medium">
                           {getInitials(user.full_name)}
                         </div>
                         <span className="font-medium">{user.full_name}</span>
-                      </div>
+                      </Link>
                     </TableCell>
                     <TableCell className="text-muted-foreground">{user.email}</TableCell>
                     <TableCell>
@@ -141,6 +172,14 @@ export const EmployeesTab = forwardRef<EmployeesTabHandle, EmployeesTabProps>(
                         {user.is_active ? 'Active' : 'Inactive'}
                       </Badge>
                     </TableCell>
+                    <TableCell className="text-right pr-4">
+                      <Button asChild size="sm" variant="outline" className="h-8 cursor-pointer">
+                        <Link to={`/admin/users/${user.id}`}>
+                          <Eye className="h-3.5 w-3.5 mr-1" />
+                          View
+                        </Link>
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -160,15 +199,25 @@ export const EmployeesTab = forwardRef<EmployeesTabHandle, EmployeesTabProps>(
             <form onSubmit={userForm.handleSubmit(onUserSubmit)} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="usr-name">Full Name</Label>
-                  <Input id="usr-name" placeholder="John Doe" {...userForm.register('full_name')} />
-                  {userForm.formState.errors.full_name && (
-                    <p className="text-xs text-destructive">{userForm.formState.errors.full_name.message}</p>
+                  <Label htmlFor="usr-first">First Name</Label>
+                  <Input id="usr-first" placeholder="John" {...userForm.register('first_name')} />
+                  {userForm.formState.errors.first_name && (
+                    <p className="text-xs text-destructive">{userForm.formState.errors.first_name.message}</p>
                   )}
                 </div>
                 <div className="space-y-2">
+                  <Label htmlFor="usr-last">Last Name</Label>
+                  <Input id="usr-last" placeholder="Doe" {...userForm.register('last_name')} />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
                   <Label htmlFor="usr-empid">Employee ID</Label>
                   <Input id="usr-empid" placeholder="e.g. EMP-001" {...userForm.register('employee_id')} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="usr-phone">Phone</Label>
+                  <Input id="usr-phone" placeholder="+60 12-345 6789" {...userForm.register('phone')} />
                 </div>
               </div>
               <div className="space-y-2">
@@ -207,14 +256,35 @@ export const EmployeesTab = forwardRef<EmployeesTabHandle, EmployeesTabProps>(
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="usr-phone">Phone</Label>
-                  <Input id="usr-phone" placeholder="+60 12-345 6789" {...userForm.register('phone')} />
+                  <Label>Employee Type</Label>
+                  <Combobox
+                    options={[
+                      { value: 'PERMANENT', label: 'Permanent' },
+                      { value: 'CONTRACT', label: 'Contract Basis' },
+                      { value: 'PROBATION', label: 'Probation' },
+                      { value: 'INTERNSHIP', label: 'Internship' },
+                      { value: 'FREELANCE', label: 'Freelance' },
+                      { value: 'PART_TIME', label: 'Part-Time Staff' },
+                      { value: 'OJT', label: 'OJT' },
+                      { value: 'SL1M_OJT', label: 'SL1M OJT' },
+                    ]}
+                    value={selectedEmployeeType}
+                    onValueChange={(value) => {
+                      setSelectedEmployeeType(value)
+                      userForm.setValue('employee_type', value as UserFormValues['employee_type'])
+                    }}
+                    placeholder="Permanent"
+                    searchPlaceholder="Search type..."
+                  />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="usr-join">Join Date</Label>
                 <Input id="usr-join" type="date" {...userForm.register('join_date')} />
               </div>
+              <p className="text-xs text-muted-foreground bg-muted/50 rounded p-2">
+                💡 Additional profile fields (NRIC, address, dependents, etc.) can be filled in after creation via the employee detail page.
+              </p>
               <DialogFooter className="pt-2">
                 <Button type="button" variant="outline" onClick={() => setUserOpen(false)} className="cursor-pointer">Cancel</Button>
                 <Button type="submit" disabled={createUser.isPending} className="cursor-pointer">

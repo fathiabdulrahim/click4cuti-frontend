@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAdminUsers } from '@/hooks/useAdmin'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import { EmptyState } from '@/components/shared/EmptyState'
@@ -15,7 +16,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { formatDate } from '@/lib/utils'
-import { Search, Users, UserCog } from 'lucide-react'
+import { Search, Users, UserCog, Eye } from 'lucide-react'
 import { ManageApproversDialog } from '@/components/admin/ManageApproversDialog'
 import type { User } from '@/lib/types'
 
@@ -76,7 +77,10 @@ export default function UserManagementPage() {
                 {filtered.map((user) => (
                   <TableRow key={user.id}>
                     <TableCell className="pl-6">
-                      <div className="flex items-center gap-3">
+                      <Link
+                        to={`/admin/users/${user.id}`}
+                        className="flex items-center gap-3 hover:text-primary transition-colors"
+                      >
                         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-xs font-medium">
                           {user.full_name
                             .split(' ')
@@ -86,7 +90,7 @@ export default function UserManagementPage() {
                             .slice(0, 2)}
                         </div>
                         <span className="font-medium">{user.full_name}</span>
-                      </div>
+                      </Link>
                     </TableCell>
                     <TableCell className="text-muted-foreground">{user.email}</TableCell>
                     <TableCell>
@@ -115,15 +119,23 @@ export default function UserManagementPage() {
                       </Badge>
                     </TableCell>
                     <TableCell className="pr-6 text-right">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="h-8 cursor-pointer"
-                        onClick={() => setApproverTarget(user)}
-                      >
-                        <UserCog className="h-3.5 w-3.5 mr-1" />
-                        Approvers
-                      </Button>
+                      <div className="flex items-center justify-end gap-2">
+                        <Button asChild size="sm" variant="outline" className="h-8 cursor-pointer">
+                          <Link to={`/admin/users/${user.id}`}>
+                            <Eye className="h-3.5 w-3.5 mr-1" />
+                            View
+                          </Link>
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-8 cursor-pointer"
+                          onClick={() => setApproverTarget(user)}
+                        >
+                          <UserCog className="h-3.5 w-3.5 mr-1" />
+                          Approvers
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
