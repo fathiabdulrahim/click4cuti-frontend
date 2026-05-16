@@ -79,6 +79,18 @@ const SelectItem = React.forwardRef<
 ))
 SelectItem.displayName = SelectPrimitive.Item.displayName
 
+const SelectLabel = React.forwardRef<
+  React.ComponentRef<typeof SelectPrimitive.Label>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
+>(({ className, ...props }, ref) => (
+  <SelectPrimitive.Label
+    ref={ref}
+    className={cn('py-1.5 pl-2 pr-8 text-sm font-semibold', className)}
+    {...props}
+  />
+))
+SelectLabel.displayName = SelectPrimitive.Label.displayName
+
 export {
   Select,
   SelectGroup,
@@ -86,4 +98,5 @@ export {
   SelectTrigger,
   SelectContent,
   SelectItem,
+  SelectLabel,
 }
