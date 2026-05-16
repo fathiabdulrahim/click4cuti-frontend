@@ -24,6 +24,9 @@ import HolidayManagementPage from './pages/admin/HolidayManagementPage'
 import LeaveApplicationsPage from './pages/admin/LeaveApplicationsPage'
 import AgencyDetailPage from './pages/admin/AgencyDetailPage'
 import CompanyDetailPage from './pages/admin/CompanyDetailPage'
+import AdminUserDetailPage from './pages/admin/AdminUserDetailPage'
+import BranchManagementPage from './pages/admin/BranchManagementPage'
+import ClaimTypeManagementPage from './pages/admin/ClaimTypeManagementPage'
 
 export default function App() {
   return (
@@ -53,6 +56,9 @@ export default function App() {
           <Route element={<AppLayout />}>
             <Route path="/admin" element={<AdminDashboardPage />} />
             <Route path="/admin/users" element={<UserManagementPage />} />
+            <Route path="/admin/users/:id" element={<AdminUserDetailPage />} />
+            <Route path="/admin/branches" element={<BranchManagementPage />} />
+            <Route path="/admin/claim-types" element={<ClaimTypeManagementPage />} />
             <Route path="/admin/leaves" element={<LeaveApplicationsPage />} />
             <Route path="/admin/policies" element={<PolicyManagementPage />} />
             <Route path="/admin/holidays" element={<HolidayManagementPage />} />
