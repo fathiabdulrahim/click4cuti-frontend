@@ -60,6 +60,8 @@ export interface User {
   manager?: User
   leave_approver_ids?: string[]
   leave_approvers?: User[]
+  leave_supervisor_l1?: User | null
+  leave_supervisor_l2?: User | null
 
   // Profile (Personal Detail)
   nric?: string | null

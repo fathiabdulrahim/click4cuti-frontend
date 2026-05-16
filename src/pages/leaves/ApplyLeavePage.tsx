@@ -276,9 +276,9 @@ export default function ApplyLeavePage() {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
-  const manager = user?.manager
-  const approverName = manager?.full_name ?? 'Your line manager'
-  const approverRole = manager?.designation?.title ?? 'Approver'
+  const l1 = user?.leave_supervisor_l1 ?? user?.manager ?? null
+  const l2 = user?.leave_supervisor_l2 ?? null
+  const approverName = l1?.full_name ?? 'Your line manager'
   const balanceAfter = selectedBalance ? selectedBalance.remaining_days - totalDays : null
 
   return (
@@ -610,21 +610,47 @@ export default function ApplyLeavePage() {
             <div className="text-[11px] font-bold tracking-wider text-muted-foreground uppercase mb-3">
               Approval flow
             </div>
+
+            {/* Level 1 */}
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full flex items-center justify-center text-[12px] font-bold bg-primary/10 text-brand-ink">
-                {initials(manager?.full_name)}
+                {initials(l1?.full_name)}
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-[13px] font-semibold truncate">{approverName}</div>
-                <div className="text-[11.5px] text-muted-foreground truncate">{approverRole}</div>
+                <div className="text-[13px] font-semibold truncate">
+                  {l1?.full_name ?? 'Your line manager'}
+                </div>
+                <div className="text-[11.5px] text-muted-foreground truncate">
+                  {l1?.designation?.title ?? 'First level approver'}
+                </div>
               </div>
-              <Pill tone="good" Icon={Check}>
-                Auto
-              </Pill>
+              <Pill tone="brand">Level 1</Pill>
             </div>
+
+            {/* Level 2 (optional) */}
+            {l2 && (
+              <>
+                <div className="ml-[18px] my-1 h-3 w-px bg-border" aria-hidden />
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center text-[12px] font-bold bg-muted text-muted-foreground">
+                    {initials(l2.full_name)}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[13px] font-semibold truncate">{l2.full_name}</div>
+                    <div className="text-[11.5px] text-muted-foreground truncate">
+                      {l2.designation?.title ?? 'Second level approver'}
+                    </div>
+                  </div>
+                  <Pill tone="neutral">Level 2</Pill>
+                </div>
+              </>
+            )}
+
             <div className="text-[11.5px] text-muted-foreground mt-3 flex items-center gap-1.5">
               <Clock className="h-3 w-3" />
-              Typical response: under 4 hours
+              {l2
+                ? 'Routes to Level 1 first, then Level 2'
+                : 'Typical response: under 4 hours'}
             </div>
           </div>
 
