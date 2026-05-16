@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { DatePicker } from '@/components/ui/date-picker'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { useAuthStore } from '@/stores/authStore'
+import { useProfile } from '@/hooks/useProfile'
 import { cn } from '@/lib/utils'
 import { format, eachDayOfInterval, isWeekend, addDays } from 'date-fns'
 import type { DayType, LeaveBalance } from '@/lib/types'
@@ -162,7 +163,11 @@ export default function ApplyLeavePage() {
   const apply = useApplyLeave()
   const { data: balances } = useLeaveBalances()
   const addToast = useNotificationStore((s) => s.addToast)
-  const user = useAuthStore((s) => s.user)
+  const authUser = useAuthStore((s) => s.user)
+  const { data: profile } = useProfile()
+  // Profile carries the full :detail view (manager + leave_supervisor_l1/l2).
+  // Fall back to authUser while the profile request is still in flight.
+  const user = profile ?? authUser
 
   const [leaveTypeId, setLeaveTypeId] = useState('')
   const [startDate, setStartDate] = useState<Date | undefined>()
