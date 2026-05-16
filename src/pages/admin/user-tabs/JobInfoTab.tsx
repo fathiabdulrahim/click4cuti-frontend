@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { SectionCard } from '@/components/shared/SectionCard'
 import { EnumSelect } from '@/components/shared/EnumSelect'
 import { UserCombobox } from '@/components/shared/UserCombobox'
 import { useAdminUser, useUpdateAdminUser } from '@/hooks/useAdminUser'
@@ -67,11 +67,8 @@ export default function JobInfoTab({ userId }: { userId: string }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Employment Details</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <SectionCard title="Employment Details" description="Job classification, branch and yearly form contact">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
             <Label>Employee No.</Label>
             <Input {...register('employee_id')} />
@@ -113,8 +110,8 @@ export default function JobInfoTab({ userId }: { userId: string }) {
               <UserCombobox admin value={field.value ?? null} onChange={field.onChange} excludeIds={[userId]} />
             )} />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </SectionCard>
 
       <div className="flex justify-end">
         <Button type="submit" disabled={update.isPending}>

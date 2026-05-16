@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { SectionCard } from '@/components/shared/SectionCard'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -95,11 +95,8 @@ export default function PayrollTab({ userId }: { userId: string }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Bank Detail</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <SectionCard title="Bank Detail" description="Salary deposit account">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
             <Label>Bank Name</Label>
             <Input {...register('bank_detail.bank_name')} />
@@ -124,14 +121,11 @@ export default function PayrollTab({ userId }: { userId: string }) {
               <EnumSelect options={ENUM_LABELS.bank_account_status} value={field.value ?? null} onChange={field.onChange} allowEmpty />
             )} />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </SectionCard>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Statutory Detail</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <SectionCard title="Statutory Detail" description="EPF, SOCSO, EIS and Income Tax">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
             <Label>EPF Number</Label>
             <Input {...register('statutory_detail.epf_number')} />
@@ -166,17 +160,14 @@ export default function PayrollTab({ userId }: { userId: string }) {
             <Label>VOLA Amount</Label>
             <Input type="number" step="0.01" {...register('statutory_detail.vola_amount', { valueAsNumber: true })} />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </SectionCard>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Tax Relief</CardTitle>
-          <p className="text-sm text-muted-foreground mt-1">
-            Children counts derived from Dependents tab.
-          </p>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <SectionCard
+        title="Tax Relief"
+        description="Children counts derived from Dependents tab"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1 flex items-center gap-3 pt-6">
             <Controller control={control} name="tax_relief.spouse_is_working" render={({ field }) => (
               <Switch checked={!!field.value} onCheckedChange={field.onChange} />
@@ -221,8 +212,8 @@ export default function PayrollTab({ userId }: { userId: string }) {
               <div className="text-lg font-medium">{data?.tax_relief?.children_disabled ?? 0}</div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </SectionCard>
 
       <div className="flex justify-end">
         <Button type="submit" disabled={update.isPending}>

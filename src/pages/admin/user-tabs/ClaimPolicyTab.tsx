@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { SectionCard } from '@/components/shared/SectionCard'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { Button } from '@/components/ui/button'
@@ -61,14 +61,12 @@ export default function ClaimPolicyTab({ userId }: { userId: string }) {
   if (isLoading) return <LoadingSpinner className="py-12" />
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Claim Policy</CardTitle>
-        <p className="text-sm text-muted-foreground mt-1">
-          Per-user limits for each claim type. Toggle Included to opt this user in/out.
-        </p>
-      </CardHeader>
-      <CardContent>
+    <SectionCard
+      title="Claim Policy"
+      description="Per-user limits for each claim type. Toggle Included to opt this user in/out."
+      flush
+    >
+      <div className="p-0">
         {data.length === 0 ? (
           <EmptyState title="No claim types configured" />
         ) : (
@@ -155,7 +153,7 @@ export default function ClaimPolicyTab({ userId }: { userId: string }) {
             </TableBody>
           </Table>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </SectionCard>
   )
 }

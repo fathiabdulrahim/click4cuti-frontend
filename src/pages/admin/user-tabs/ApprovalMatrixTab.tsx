@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
+import { SectionCard } from '@/components/shared/SectionCard'
 import { UserCombobox } from '@/components/shared/UserCombobox'
 import {
   useUserSupervisors,
@@ -53,15 +53,11 @@ export default function ApprovalMatrixTab({ userId }: { userId: string }) {
   if (isLoading) return <LoadingSpinner className="py-12" />
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Approval Hierarchy</CardTitle>
-        <p className="text-sm text-muted-foreground">
-          Configure first &amp; second level approvers per category. Changes affect pending applications.
-        </p>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3 items-center">
+    <SectionCard
+      title="Approval Hierarchy"
+      description="Configure first & second level approvers per category. Changes affect pending applications."
+    >
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-3 items-center">
           <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
             Category
           </div>
@@ -95,8 +91,7 @@ export default function ApprovalMatrixTab({ userId }: { userId: string }) {
               </div>
             )
           })}
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </SectionCard>
   )
 }

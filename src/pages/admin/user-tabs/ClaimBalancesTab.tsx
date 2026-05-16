@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { SectionCard } from '@/components/shared/SectionCard'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
@@ -19,23 +19,23 @@ export default function ClaimBalancesTab({ userId }: { userId: string }) {
   const { data = [], isLoading } = useUserClaimBalances(userId, year)
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0">
-        <div>
-          <CardTitle className="text-base">Claim Balances</CardTitle>
-          <p className="text-sm text-muted-foreground mt-1">Year-to-date claim balances (read-only)</p>
-        </div>
+    <SectionCard
+      title="Claim Balances"
+      description="Year-to-date claim balances (read-only)"
+      action={
         <div className="flex items-center gap-2">
-          <Label className="text-sm">Year</Label>
+          <Label className="text-xs uppercase tracking-wide text-muted-foreground">Year</Label>
           <Input
             type="number"
             value={year}
             onChange={(e) => setYear(Number(e.target.value) || year)}
-            className="w-24"
+            className="w-24 h-8"
           />
         </div>
-      </CardHeader>
-      <CardContent>
+      }
+      flush
+    >
+      <div>
         {isLoading ? (
           <LoadingSpinner className="py-12" />
         ) : data.length === 0 ? (
@@ -66,7 +66,7 @@ export default function ClaimBalancesTab({ userId }: { userId: string }) {
             </TableBody>
           </Table>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </SectionCard>
   )
 }

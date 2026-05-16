@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,6 +16,7 @@ import {
 import { Plus, Trash2 } from 'lucide-react'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import { EmptyState } from '@/components/shared/EmptyState'
+import { SectionCard } from '@/components/shared/SectionCard'
 import { UserCombobox } from '@/components/shared/UserCombobox'
 import {
   useCareerProgresses,
@@ -56,17 +56,16 @@ export default function CareerTimelineTab({ userId }: { userId: string }) {
   }
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0">
-        <div>
-          <CardTitle className="text-base">Career Timeline</CardTitle>
-          <p className="text-sm text-muted-foreground mt-1">Job title, department & manager changes</p>
-        </div>
+    <SectionCard
+      title="Career Timeline"
+      description="Job title, department & manager changes"
+      action={
         <Button size="sm" onClick={() => { reset(); setOpen(true) }}>
-          <Plus className="mr-1 h-4 w-4" /> Add
+          <Plus className="mr-1 h-3.5 w-3.5" /> Add entry
         </Button>
-      </CardHeader>
-      <CardContent>
+      }
+    >
+      <div>
         {isLoading ? (
           <LoadingSpinner className="py-12" />
         ) : data.length === 0 ? (
@@ -101,7 +100,7 @@ export default function CareerTimelineTab({ userId }: { userId: string }) {
             ))}
           </ol>
         )}
-      </CardContent>
+      </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
@@ -144,6 +143,6 @@ export default function CareerTimelineTab({ userId }: { userId: string }) {
           </form>
         </DialogContent>
       </Dialog>
-    </Card>
+    </SectionCard>
   )
 }

@@ -56,23 +56,25 @@ export function AdminUserTabs({ userId }: Props) {
 
   return (
     <Tabs value={tab} onValueChange={handleChange}>
-      <TabsList className="h-auto flex-wrap">
-        <TabsTrigger value="personal">Personal Detail</TabsTrigger>
-        <TabsTrigger value="job">Job Info</TabsTrigger>
-        <TabsTrigger value="approval">Approval</TabsTrigger>
-        <TabsTrigger value="contact">Contact</TabsTrigger>
-        <TabsTrigger value="dependents">Dependents</TabsTrigger>
-        <TabsTrigger value="work-experience">Work Experience</TabsTrigger>
-        <TabsTrigger value="career">Career Timeline</TabsTrigger>
-        <TabsTrigger value="compensation">Payroll</TabsTrigger>
-        <TabsTrigger value="files">Files</TabsTrigger>
-        <TabsTrigger value="training">Training</TabsTrigger>
-        <TabsTrigger value="equipment">Assets</TabsTrigger>
-        <TabsTrigger value="claim-policy">Claim Policy</TabsTrigger>
-        <TabsTrigger value="claim-balances">Claim Balances</TabsTrigger>
-        <TabsTrigger value="claim-history">Claim History</TabsTrigger>
-        <TabsTrigger value="conduct">Conduct</TabsTrigger>
-      </TabsList>
+      <div className="border-b -mt-2 mb-4 overflow-x-auto">
+        <TabsList className="h-auto bg-transparent p-0 gap-0 flex-nowrap">
+        <TabsTrigger value="personal" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Personal Detail</TabsTrigger>
+        <TabsTrigger value="job" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Job Info</TabsTrigger>
+        <TabsTrigger value="approval" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Approval</TabsTrigger>
+        <TabsTrigger value="contact" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Contact</TabsTrigger>
+        <TabsTrigger value="dependents" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Dependents</TabsTrigger>
+        <TabsTrigger value="work-experience" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Work Experience</TabsTrigger>
+        <TabsTrigger value="career" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Career Timeline</TabsTrigger>
+        <TabsTrigger value="compensation" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Payroll</TabsTrigger>
+        <TabsTrigger value="files" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Files</TabsTrigger>
+        <TabsTrigger value="training" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Training</TabsTrigger>
+        <TabsTrigger value="equipment" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Assets</TabsTrigger>
+        <TabsTrigger value="claim-policy" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Claim Policy</TabsTrigger>
+        <TabsTrigger value="claim-balances" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Claim Balances</TabsTrigger>
+        <TabsTrigger value="claim-history" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Claim History</TabsTrigger>
+        <TabsTrigger value="conduct" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#FE4E01] data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground py-2.5 px-4">Conduct</TabsTrigger>
+        </TabsList>
+      </div>
       <TabsContent value="personal"><PersonalDetailAdminTab userId={userId} /></TabsContent>
       <TabsContent value="job"><JobInfoTab userId={userId} /></TabsContent>
       <TabsContent value="approval"><ApprovalMatrixTab userId={userId} /></TabsContent>
