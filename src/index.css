@@ -94,3 +94,56 @@
 .c4c-festival-card:hover {
   box-shadow: 8px 8px 0 #FE4E01 !important;
 }
+
+/* Smooth scroll for anchor links, with offset so sticky nav doesn't cover headings */
+html { scroll-behavior: smooth; }
+.c4c-section-anchor { scroll-margin-top: 80px; }
+
+/* Skip-to-content link — visible only on keyboard focus */
+.c4c-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: #1A1410;
+  color: #fff;
+  padding: 12px 18px;
+  border: 2px solid #FE4E01;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+}
+.c4c-skip-link:focus,
+.c4c-skip-link:focus-visible {
+  left: 0;
+  top: 0;
+}
+
+/* Universal focus rings for the landing page's custom-styled links/buttons.
+   Inline styles in the page kill default outlines, so we put them back explicitly. */
+.c4c-focusable:focus-visible,
+.c4c-cta-primary:focus-visible,
+.c4c-cta-secondary:focus-visible,
+.c4c-nav-link:focus-visible {
+  outline: 3px solid #FE4E01;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* On orange backgrounds, switch the focus ring to ink for contrast */
+.c4c-focus-ink:focus-visible {
+  outline-color: #1A1410 !important;
+}
+
+/* "● ON LEAVE" indicator gentle pulse */
+@keyframes c4c-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+.c4c-pulse {
+  display: inline-block;
+  animation: c4c-pulse 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .c4c-pulse { animation: none; }
+}

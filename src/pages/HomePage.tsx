@@ -23,13 +23,16 @@ export default function HomePage() {
         minHeight: '100vh',
       }}
     >
+      <a href="#main" className="c4c-skip-link">Skip to main content</a>
       <Nav />
-      <Hero />
-      <BalikKampung />
-      <Steps />
-      <Quote />
-      <Features />
-      <Finale />
+      <main id="main">
+        <Hero />
+        <BalikKampung />
+        <Steps />
+        <Quote />
+        <Features />
+        <Finale />
+      </main>
       <Footer />
     </div>
   )
@@ -54,7 +57,7 @@ function Nav() {
         gap: 16,
       }}
     >
-      <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+      <Link to="/" className="c4c-focusable" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
         <img src="/logo-navbar.svg" alt="Click4Cuti" style={{ height: 36, width: 'auto' }} />
       </Link>
       <div className="hidden md:flex items-center gap-8">
@@ -85,6 +88,7 @@ function Nav() {
         </Link>
         <Link
           to="/login"
+          className="c4c-focusable"
           style={{
             fontSize: 14,
             fontWeight: 700,
@@ -138,7 +142,9 @@ function Hero() {
       >
         <span>ISSUE 04</span>
         <span style={{ width: 20, height: 1, background: brand.ink }} />
-        <span style={{ color: brand.orange }}>● ON LEAVE</span>
+        <span style={{ color: brand.orange }}>
+          <span className="c4c-pulse" aria-hidden="true">●</span>{' '}ON LEAVE
+        </span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-14 items-start">
@@ -223,6 +229,7 @@ function Hero() {
             </Link>
             <a
               href="#story"
+              className="c4c-focusable"
               style={{
                 fontSize: 15,
                 fontWeight: 700,
@@ -249,8 +256,11 @@ function Hero() {
         </div>
       </div>
 
-      {/* Marquee band */}
+      {/* Marquee band — festival names; one copy is real content for SRs,
+          the duplicate is purely for the seamless visual loop. */}
       <div
+        role="region"
+        aria-label="Festivals supported by Click4Cuti"
         style={{
           marginTop: 'clamp(48px, 6vw, 72px)',
           padding: '14px 0',
@@ -268,10 +278,13 @@ function Hero() {
         <div
           className="c4c-marquee-track"
           style={{ display: 'flex', gap: 40, width: 'max-content' }}
-          aria-hidden="true"
         >
           {[...Array(2)].map((_, dup) => (
-            <div key={dup} style={{ display: 'flex', gap: 40, paddingRight: 40 }}>
+            <div
+              key={dup}
+              style={{ display: 'flex', gap: 40, paddingRight: 40 }}
+              aria-hidden={dup === 1 ? 'true' : undefined}
+            >
               {(
                 [
                   'HARI RAYA',
@@ -593,6 +606,7 @@ function Quote() {
   return (
     <section
       id="story"
+      className="c4c-section-anchor"
       style={{
         padding: `${SECTION_PADDING_Y} ${SECTION_PADDING_X}`,
         background: brand.orange,
@@ -637,7 +651,7 @@ function Quote() {
             >
               [ foto: HR Head ]
               <div style={{ position: 'absolute', bottom: -14, right: -14 }}>
-                <Stamp size="sm" color="#fff" textColor={brand.orange} rotate={-4}>
+                <Stamp size="sm" color="#fff" textColor={brand.ink} rotate={-4}>
                   PELANGGAN
                 </Stamp>
               </div>
@@ -681,7 +695,7 @@ function Quote() {
             <div style={{ marginTop: 36, display: 'flex', alignItems: 'center', gap: 20 }}>
               <div>
                 <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.01em' }}>Shafiqah Ibrahim</div>
-                <div style={{ fontSize: 13, opacity: 0.85, marginTop: 2 }}>
+                <div style={{ fontSize: 14, color: brand.ink, marginTop: 4, fontWeight: 500 }}>
                   Head of People Ops · Warung Digital (120 staff · 3 countries)
                 </div>
               </div>
@@ -1023,12 +1037,14 @@ function Footer() {
           <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13 }}>
             <a
               href={`mailto:${EMAIL}`}
+              className="c4c-focusable"
               style={{ color: brand.paper, textDecoration: 'none', opacity: 0.9 }}
             >
               ✉  {EMAIL}
             </a>
             <a
               href={`tel:${PHONE_TEL}`}
+              className="c4c-focusable"
               style={{ color: brand.paper, textDecoration: 'none', opacity: 0.9, fontFamily: MONO }}
             >
               ☏  {PHONE}
@@ -1060,6 +1076,7 @@ function Footer() {
                     href={href}
                     target={href.startsWith('http') ? '_blank' : undefined}
                     rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                    className="c4c-focusable"
                     style={{
                       fontSize: 14,
                       color: brand.paper,
