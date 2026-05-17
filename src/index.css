@@ -52,3 +52,45 @@
     -webkit-font-smoothing: antialiased;
   }
 }
+
+/* "Leave Stories" landing page utilities */
+@keyframes c4c-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.c4c-marquee-track {
+  animation: c4c-marquee 30s linear infinite;
+}
+.c4c-marquee-track:hover {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .c4c-marquee-track { animation: none; }
+}
+
+.c4c-cta-primary {
+  transition: transform 120ms ease-out, box-shadow 120ms ease-out, background 120ms ease-out;
+}
+.c4c-cta-primary:hover {
+  background: #E54400 !important;
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 #1A1410 !important;
+}
+.c4c-cta-secondary {
+  transition: background 120ms ease-out;
+}
+.c4c-cta-secondary:hover {
+  background: #FFF3EC !important;
+}
+.c4c-nav-link {
+  transition: color 120ms ease-out;
+}
+.c4c-nav-link:hover {
+  color: #FE4E01 !important;
+}
+.c4c-festival-card {
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.c4c-festival-card:hover {
+  box-shadow: 8px 8px 0 #FE4E01 !important;
+}

@@ -1,495 +1,1096 @@
 import { Link } from 'react-router-dom'
-import {
-  CalendarDays,
-  Users,
-  ShieldCheck,
-  BarChart3,
-  Clock,
-  ArrowRight,
-  Building2,
-  UserCog,
-  CheckCircle2,
-  Briefcase,
-  CalendarCheck,
-  FileCheck,
-  ChevronRight,
-} from 'lucide-react'
+import { brand, SANS, SERIF, MONO } from '@/components/landing/brand'
+import { Stamp } from '@/components/landing/Stamp'
+import { CutiSlip } from '@/components/landing/CutiSlip'
 
-const features = [
-  {
-    icon: CalendarDays,
-    title: 'Leave Tracking',
-    description:
-      'Apply, track, and manage leave requests with real-time balance updates and calendar views.',
-    colSpan: 'sm:col-span-2',
-  },
-  {
-    icon: Users,
-    title: 'Team Management',
-    description:
-      'Review and approve team leave requests with a clear overview of availability.',
-    colSpan: '',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Policy Compliance',
-    description:
-      'Configure leave policies, public holidays, and work schedules per company.',
-    colSpan: '',
-  },
-  {
-    icon: BarChart3,
-    title: 'HR Analytics',
-    description:
-      'Dashboards with insights on leave trends, utilization, and workforce planning.',
-    colSpan: '',
-  },
-  {
-    icon: Clock,
-    title: 'Quick Approvals',
-    description:
-      'Streamlined approval workflows that keep your team moving without delays.',
-    colSpan: '',
-  },
-  {
-    icon: Building2,
-    title: 'Multi-Tenant',
-    description:
-      'Support for multiple agencies and companies with hierarchical access control.',
-    colSpan: 'sm:col-span-2',
-  },
-]
+// Click4Cuti — "Leave Stories" landing page
+// Editorial / magazine / paper-stamp aesthetic per design_handoff_landing_a.
+//
+// Sizes from the prototype use clamp() so the design degrades cleanly on
+// mobile (README spec: hero h1 56–64 / 124px, finale h2 80 / 160px,
+// section padding 64–24 / 110–56 px).
 
-const steps = [
-  {
-    icon: Briefcase,
-    step: '01',
-    title: 'Employee Applies',
-    description: 'Submit leave requests in seconds with an intuitive form.',
-  },
-  {
-    icon: FileCheck,
-    step: '02',
-    title: 'Manager Reviews',
-    description: 'Managers get notified and approve or reject with one click.',
-  },
-  {
-    icon: CalendarCheck,
-    step: '03',
-    title: 'Everyone Stays Synced',
-    description:
-      'Balances update automatically. The team calendar reflects changes instantly.',
-  },
-]
+const SECTION_PADDING_Y = 'clamp(64px, 9vw, 120px)'
+const SECTION_PADDING_X = 'clamp(24px, 5vw, 56px)'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center">
-            <img
-              src="/logo-navbar.svg"
-              alt="Click4Cuti"
-              className="h-8 sm:h-9"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Link
-              to="/login"
-              className="text-sm font-medium text-gray-600 hover:text-[#FE4E01] transition-colors cursor-pointer px-4 py-2 rounded-lg"
-            >
-              Employee Login
-            </Link>
-            <Link
-              to="/admin/login"
-              className="text-sm font-semibold text-white bg-[#FE4E01] hover:bg-[#E54400] transition-colors cursor-pointer px-5 py-2 rounded-lg"
-            >
-              Admin Portal
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FE4E01]/[0.03] via-transparent to-[#FE4E01]/[0.02]" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left */}
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#FE4E01] bg-[#FE4E01]/8 px-3 py-1.5 rounded-full mb-6">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                Leave Management System
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold text-gray-900 tracking-tight leading-[1.1]">
-                Leave management
-                <br />
-                your team can
-                <br />
-                <span className="text-[#FE4E01]">rely on.</span>
-              </h1>
-              <p className="mt-6 text-base sm:text-lg text-gray-500 leading-relaxed max-w-md">
-                Click4Cuti streamlines leave applications, approvals, and
-                tracking for organizations of every size. Built for HR teams that
-                value clarity.
-              </p>
-
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link
-                  to="/login"
-                  className="group inline-flex items-center justify-center gap-2 bg-[#FE4E01] text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-[#E54400] transition-colors duration-200 cursor-pointer"
-                >
-                  <UserCog className="w-4.5 h-4.5" />
-                  Employee Login
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-                <Link
-                  to="/admin/login"
-                  className="group inline-flex items-center justify-center gap-2 bg-gray-900 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-gray-800 transition-colors duration-200 cursor-pointer"
-                >
-                  <ShieldCheck className="w-4.5 h-4.5" />
-                  Admin Portal
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </div>
-
-              {/* Trust signals */}
-              <div className="mt-10 flex items-center gap-5 text-xs text-gray-400">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#FE4E01]/60" />
-                  Multi-tenant ready
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#FE4E01]/60" />
-                  Role-based access
-                </span>
-                <span className="flex items-center gap-1.5 hidden sm:flex">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#FE4E01]/60" />
-                  Real-time sync
-                </span>
-              </div>
-            </div>
-
-            {/* Right — Product Preview */}
-            <div className="relative">
-              <div className="absolute -inset-6 bg-[#FE4E01]/[0.04] rounded-[2rem] blur-3xl" />
-              <div className="relative bg-white rounded-2xl border border-gray-200 shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden">
-                {/* Browser chrome */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 border-b border-gray-100">
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-300" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-300" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-300" />
-                  </div>
-                  <div className="flex-1 mx-8">
-                    <div className="h-5 bg-white rounded-md border border-gray-200 flex items-center px-3">
-                      <span className="text-[10px] text-gray-400 font-medium">
-                        click4cuti.app/dashboard
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Dashboard content */}
-                <div className="p-4 sm:p-5 space-y-4">
-                  {/* Stat cards */}
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      {
-                        label: 'Annual Leave',
-                        value: '12',
-                        sub: '/ 16 days',
-                        color: 'bg-[#FE4E01]',
-                        pct: 75,
-                      },
-                      {
-                        label: 'Sick Leave',
-                        value: '8',
-                        sub: '/ 14 days',
-                        color: 'bg-gray-900',
-                        pct: 57,
-                      },
-                      {
-                        label: 'Pending',
-                        value: '2',
-                        sub: 'requests',
-                        color: 'bg-amber-500',
-                        pct: 100,
-                      },
-                    ].map((card) => (
-                      <div
-                        key={card.label}
-                        className="rounded-xl bg-gray-50 border border-gray-100 p-3"
-                      >
-                        <div className="text-[10px] font-medium text-gray-400 mb-1">
-                          {card.label}
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-xl font-bold text-gray-900">
-                            {card.value}
-                          </span>
-                          <span className="text-[10px] text-gray-400">
-                            {card.sub}
-                          </span>
-                        </div>
-                        <div className="mt-2 h-1 bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full rounded-full ${card.color}`}
-                            style={{ width: `${card.pct}%` }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Recent activity */}
-                  <div>
-                    <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                      Recent Applications
-                    </div>
-                    <div className="space-y-2">
-                      {[
-                        {
-                          name: 'Ahmad R.',
-                          type: 'Annual Leave',
-                          days: '3 days',
-                          status: 'Approved',
-                          statusColor:
-                            'bg-emerald-50 text-emerald-700 border-emerald-100',
-                        },
-                        {
-                          name: 'Siti N.',
-                          type: 'Medical Leave',
-                          days: '1 day',
-                          status: 'Pending',
-                          statusColor:
-                            'bg-amber-50 text-amber-700 border-amber-100',
-                        },
-                        {
-                          name: 'Farid K.',
-                          type: 'Annual Leave',
-                          days: '5 days',
-                          status: 'Approved',
-                          statusColor:
-                            'bg-emerald-50 text-emerald-700 border-emerald-100',
-                        },
-                      ].map((row) => (
-                        <div
-                          key={row.name}
-                          className="flex items-center gap-3 rounded-lg bg-white border border-gray-100 px-3 py-2.5"
-                        >
-                          <div className="w-7 h-7 rounded-full bg-[#FE4E01]/10 flex items-center justify-center text-[10px] font-bold text-[#FE4E01]">
-                            {row.name[0]}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-xs font-semibold text-gray-900">
-                              {row.name}
-                            </div>
-                            <div className="text-[10px] text-gray-400">
-                              {row.type} &middot; {row.days}
-                            </div>
-                          </div>
-                          <span
-                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${row.statusColor}`}
-                          >
-                            {row.status}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-[#FE4E01] uppercase tracking-wider mb-3">
-              How It Works
-            </p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-              Three simple steps to streamline
-              <br className="hidden sm:block" />
-              your leave process
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {steps.map((item, i) => (
-              <div key={item.step} className="relative">
-                {i < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-10 left-[calc(50%+40px)] w-[calc(100%-80px)] h-px border-t-2 border-dashed border-[#FE4E01]/20" />
-                )}
-                <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white border-2 border-[#FE4E01]/10 mb-4">
-                    <item.icon className="w-7 h-7 text-[#FE4E01]" />
-                  </div>
-                  <div className="text-[10px] font-bold text-[#FE4E01]/50 uppercase tracking-widest mb-1.5">
-                    Step {item.step}
-                  </div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-1.5">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed max-w-xs mx-auto">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features — Bento Grid */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-[#FE4E01] uppercase tracking-wider mb-3">
-              Features
-            </p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-              Built for Every Role
-            </h2>
-            <p className="mt-3 text-gray-500 max-w-md mx-auto">
-              A complete platform from individual employees to super admins.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className={`group relative rounded-2xl bg-white border border-gray-200 p-6 hover:border-[#FE4E01]/30 hover:shadow-[0_4px_20px_rgba(254,78,1,0.06)] transition-all duration-200 cursor-pointer ${feature.colSpan}`}
-              >
-                <div className="w-10 h-10 rounded-xl bg-[#FE4E01] flex items-center justify-center mb-4">
-                  <feature.icon className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="text-sm font-semibold text-gray-900">
-                  {feature.title}
-                </h3>
-                <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Portal Cards */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-[#FE4E01] uppercase tracking-wider mb-3">
-              Get Started
-            </p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-              Choose Your Portal
-            </h2>
-            <p className="mt-3 text-gray-500 max-w-md mx-auto">
-              Select the right entry point based on your role.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {/* Employee Card */}
-            <Link
-              to="/login"
-              className="group relative rounded-2xl bg-white border border-gray-200 p-8 hover:border-[#FE4E01]/40 hover:shadow-[0_8px_32px_rgba(254,78,1,0.08)] transition-all duration-200 cursor-pointer"
-            >
-              <div className="w-12 h-12 rounded-xl bg-[#FE4E01] flex items-center justify-center mb-5">
-                <UserCog className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                Employee Portal
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed mb-6">
-                Apply for leave, check your balances, view team calendars, and
-                track request status.
-              </p>
-              <div className="space-y-2 mb-6">
-                {[
-                  'Apply & track leave requests',
-                  'View leave balances',
-                  'Team availability calendar',
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-center gap-2 text-sm text-gray-600"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#FE4E01] shrink-0" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#FE4E01] group-hover:gap-2.5 transition-all">
-                Sign in as Employee
-                <ChevronRight className="w-4 h-4" />
-              </span>
-            </Link>
-
-            {/* Admin Card */}
-            <Link
-              to="/admin/login"
-              className="group relative rounded-2xl bg-gray-900 border border-gray-800 p-8 hover:bg-gray-800 transition-all duration-200 cursor-pointer"
-            >
-              <div className="w-12 h-12 rounded-xl bg-[#FE4E01] flex items-center justify-center mb-5">
-                <ShieldCheck className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">
-                Admin Portal
-              </h3>
-              <p className="text-sm text-gray-400 leading-relaxed mb-6">
-                Manage users, configure policies, oversee all leave applications
-                across the organization.
-              </p>
-              <div className="space-y-2 mb-6">
-                {[
-                  'User & role management',
-                  'Leave policy configuration',
-                  'Company & agency oversight',
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-center gap-2 text-sm text-gray-400"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#FE4E01] shrink-0" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#FE4E01] group-hover:gap-2.5 transition-all">
-                Sign in as Admin
-                <ChevronRight className="w-4 h-4" />
-              </span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-gray-100">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <img
-              src="/logo-icon.svg"
-              alt="Click4Cuti"
-              className="w-7 h-7 rounded-md"
-            />
-            <span className="text-sm font-bold text-gray-900">Click4Cuti</span>
-          </div>
-          <p className="text-xs text-gray-400">
-            &copy; {new Date().getFullYear()} Click4Cuti. All rights reserved.
-          </p>
-        </div>
-      </footer>
+    <div
+      style={{
+        background: brand.paper,
+        fontFamily: SANS,
+        color: brand.ink,
+        minHeight: '100vh',
+      }}
+    >
+      <Nav />
+      <Hero />
+      <BalikKampung />
+      <Steps />
+      <Quote />
+      <Features />
+      <Finale />
+      <Footer />
     </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// Nav
+// ─────────────────────────────────────────────────────────────
+function Nav() {
+  return (
+    <nav
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: `18px ${SECTION_PADDING_X}`,
+        borderBottom: `1.5px solid ${brand.ink}`,
+        background: brand.paper,
+        gap: 16,
+      }}
+    >
+      <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+        <img src="/logo-navbar.svg" alt="Click4Cuti" style={{ height: 36, width: 'auto' }} />
+      </Link>
+      <div className="hidden md:flex items-center gap-8">
+        {(['Product', 'For HR', 'Stories', 'Pricing'] as const).map((l) => (
+          <a
+            key={l}
+            href="#"
+            className="c4c-nav-link"
+            style={{ fontSize: 14, fontWeight: 600, color: brand.ink, textDecoration: 'none' }}
+          >
+            {l}
+          </a>
+        ))}
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <Link
+          to="/login"
+          className="c4c-nav-link hidden md:inline-flex"
+          style={{
+            fontSize: 14,
+            fontWeight: 600,
+            color: brand.ink,
+            textDecoration: 'none',
+            padding: '8px 14px',
+          }}
+        >
+          Log In
+        </Link>
+        <Link
+          to="/login"
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            color: '#fff',
+            textDecoration: 'none',
+            background: brand.ink,
+            padding: '10px 18px',
+            borderRadius: 6,
+            border: `2px solid ${brand.ink}`,
+            boxShadow: `2px 2px 0 ${brand.orange}`,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+          }}
+        >
+          Book a Demo <span>→</span>
+        </Link>
+      </div>
+    </nav>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// Hero
+// ─────────────────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section
+      style={{
+        position: 'relative',
+        padding: `${SECTION_PADDING_Y} ${SECTION_PADDING_X} clamp(56px, 8vw, 96px)`,
+        background: brand.paper,
+        overflow: 'hidden',
+        borderBottom: `1.5px solid ${brand.ink}`,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          fontSize: 12,
+          fontWeight: 700,
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: brand.ink,
+          marginBottom: 32,
+          fontFamily: MONO,
+          flexWrap: 'wrap',
+        }}
+      >
+        <span>ISSUE 04</span>
+        <span style={{ width: 20, height: 1, background: brand.ink }} />
+        <span style={{ color: brand.orange }}>● ON LEAVE</span>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-14 items-start">
+        <div>
+          <div style={{ marginBottom: 24, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Stamp size="md" rotate={-3}>Leave Stories</Stamp>
+            <Stamp size="md" color={brand.ink} textColor="#fff" rotate={2}>SEA Edition</Stamp>
+          </div>
+
+          <h1
+            style={{
+              fontSize: 'clamp(56px, 9vw, 124px)',
+              lineHeight: 0.92,
+              fontWeight: 800,
+              letterSpacing: '-0.04em',
+              color: brand.ink,
+              margin: 0,
+              fontFamily: SANS,
+            }}
+          >
+            Time off that<br />
+            <em
+              style={{
+                fontStyle: 'italic',
+                fontWeight: 500,
+                color: brand.orange,
+                fontFamily: SERIF,
+              }}
+            >
+              actually
+            </em>
+            <br />
+            <em
+              style={{
+                fontStyle: 'italic',
+                fontWeight: 500,
+                color: brand.orange,
+                fontFamily: SERIF,
+              }}
+            >
+              feels
+            </em>{' '}
+            like time off.
+          </h1>
+
+          <p
+            style={{
+              marginTop: 32,
+              maxWidth: 520,
+              fontSize: 18,
+              lineHeight: 1.55,
+              color: brand.ink,
+              fontWeight: 400,
+            }}
+          >
+            Click4Cuti handles leave applications, approvals, and balances for teams across Southeast Asia —
+            from Hari Raya back home, to Deepavali with family, to Gawai at the longhouse.
+            So when your people say <em>cuti</em>, they actually get to be on leave.
+          </p>
+
+          <div style={{ marginTop: 36, display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Link
+              to="/login"
+              className="c4c-cta-primary"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                background: brand.orange,
+                color: '#fff',
+                padding: '16px 26px',
+                borderRadius: 8,
+                border: `2px solid ${brand.ink}`,
+                boxShadow: `4px 4px 0 ${brand.ink}`,
+                fontSize: 16,
+                fontWeight: 800,
+                textDecoration: 'none',
+                letterSpacing: '0.02em',
+              }}
+            >
+              Book a Free Demo <span>→</span>
+            </Link>
+            <a
+              href="#story"
+              style={{
+                fontSize: 15,
+                fontWeight: 700,
+                color: brand.ink,
+                textDecoration: 'underline',
+                textDecorationThickness: 2,
+                textUnderlineOffset: 4,
+              }}
+            >
+              Read customer stories
+            </a>
+          </div>
+        </div>
+
+        {/* Right: cuti slip */}
+        <div style={{ position: 'relative', paddingTop: 48 }}>
+          <CutiSlip />
+          <div style={{ position: 'absolute', top: 0, right: -12, zIndex: 3 }}>
+            <Stamp size="lg" rotate={8}>Approved</Stamp>
+          </div>
+          <div style={{ position: 'absolute', bottom: 30, left: -20, zIndex: 3 }}>
+            <Stamp size="md" rotate={-6} color={brand.ink} textColor={brand.orange}>12 days left</Stamp>
+          </div>
+        </div>
+      </div>
+
+      {/* Marquee band */}
+      <div
+        style={{
+          marginTop: 'clamp(48px, 6vw, 72px)',
+          padding: '14px 0',
+          background: brand.orange,
+          color: '#fff',
+          border: `2px solid ${brand.ink}`,
+          overflow: 'hidden',
+          fontFamily: MONO,
+          fontSize: 14,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+        }}
+      >
+        <div
+          className="c4c-marquee-track"
+          style={{ display: 'flex', gap: 40, width: 'max-content' }}
+          aria-hidden="true"
+        >
+          {[...Array(2)].map((_, dup) => (
+            <div key={dup} style={{ display: 'flex', gap: 40, paddingRight: 40 }}>
+              {(
+                [
+                  'HARI RAYA',
+                  'DEEPAVALI',
+                  'WESAK',
+                  'GAWAI',
+                  'NYEPI',
+                  'THAIPUSAM',
+                  'LEBARAN',
+                  'MERDEKA DAY',
+                  'CHUSEOK',
+                ] as const
+              ).map((t) => (
+                <span key={`${dup}-${t}`} style={{ whiteSpace: 'nowrap' }}>
+                  {t} ·
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// §01 Balik Kampung Guarantee
+// ─────────────────────────────────────────────────────────────
+function BalikKampung() {
+  const cards = [
+    { festival: 'Hari Raya', date: '10 – 11 May', days: '5 days', emoji: '◐', rot: -4, top: 0, left: 20 },
+    { festival: 'Deepavali', date: '10 Nov', days: '1 day', emoji: '◈', rot: 3, top: 80, left: 140 },
+    { festival: 'Gawai Dayak', date: '1 – 2 Jun', days: '2 days', emoji: '❋', rot: -2, top: 160, left: 60 },
+    { festival: 'Chinese New Year', date: '16 – 17 Feb', days: '3 days', emoji: '✺', rot: 5, top: 240, left: 180 },
+  ] as const
+
+  return (
+    <section
+      style={{
+        padding: `${SECTION_PADDING_Y} ${SECTION_PADDING_X}`,
+        background: brand.ink,
+        color: brand.paper,
+        borderBottom: `1.5px solid ${brand.ink}`,
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-center">
+        <div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: brand.orange,
+              marginBottom: 20,
+              fontFamily: MONO,
+            }}
+          >
+            § 01 · Jaminan Balik Kampung
+          </div>
+          <h2
+            style={{
+              fontSize: 'clamp(40px, 6vw, 76px)',
+              fontWeight: 800,
+              lineHeight: 0.95,
+              letterSpacing: '-0.03em',
+              margin: 0,
+            }}
+          >
+            Kerana tiada siapa patut{' '}
+            <em
+              style={{
+                fontStyle: 'italic',
+                fontWeight: 500,
+                fontFamily: SERIF,
+                color: brand.orange,
+              }}
+            >
+              approve
+            </em>{' '}
+            festival leave a week in advance.
+          </h2>
+          <p
+            style={{
+              marginTop: 28,
+              fontSize: 18,
+              lineHeight: 1.6,
+              maxWidth: 480,
+              color: 'rgba(250,246,242,0.78)',
+            }}
+          >
+            Festival leave requests get recognised automatically — spotted early, laid out
+            in the team calendar, and approved within 24 hours. No more Friday-night panic emails.
+          </p>
+          <div style={{ marginTop: 36, display: 'flex', gap: 'clamp(20px, 4vw, 48px)', flexWrap: 'wrap' }}>
+            {(
+              [
+                ['24h', 'avg. approval time'],
+                ['98%', 'festival leave approved'],
+                ['0', 'panic emails'],
+              ] as const
+            ).map(([k, v]) => (
+              <div key={v}>
+                <div
+                  style={{
+                    fontSize: 'clamp(32px, 4vw, 44px)',
+                    fontWeight: 800,
+                    color: brand.orange,
+                    letterSpacing: '-0.03em',
+                  }}
+                >
+                  {k}
+                </div>
+                <div style={{ fontSize: 13, color: 'rgba(250,246,242,0.6)', marginTop: 4, maxWidth: 120 }}>
+                  {v}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Festival cards stack */}
+        <div style={{ position: 'relative', minHeight: 440 }}>
+          {cards.map((f, i) => (
+            <div
+              key={f.festival}
+              className="c4c-festival-card"
+              style={{
+                position: 'absolute',
+                top: f.top,
+                left: f.left,
+                background: i === 1 ? brand.orange : brand.paper,
+                color: i === 1 ? '#fff' : brand.ink,
+                padding: '20px 24px',
+                width: 'clamp(220px, 24vw, 280px)',
+                border: `2px solid ${i === 1 ? '#fff' : brand.ink}`,
+                borderRadius: 10,
+                boxShadow: `5px 5px 0 ${brand.orange}`,
+                transform: `rotate(${f.rot}deg)`,
+                zIndex: 4 - i,
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 28 }}>{f.emoji}</span>
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 800,
+                    letterSpacing: '0.1em',
+                    background: i === 1 ? '#fff' : brand.orange,
+                    color: i === 1 ? brand.orange : '#fff',
+                    padding: '3px 8px',
+                    borderRadius: 3,
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Approved
+                </span>
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.02em', marginTop: 10 }}>
+                {f.festival}
+              </div>
+              <div style={{ fontSize: 13, opacity: 0.7, marginTop: 2, fontFamily: MONO }}>
+                {f.date} · {f.days}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// §02 Steps
+// ─────────────────────────────────────────────────────────────
+function Steps() {
+  const steps = [
+    {
+      n: '01',
+      title: 'Apply in 30 seconds',
+      body: 'A short form. Pick dates, leave type, reason — done. No more three-paragraph formal memos.',
+      accent: 'The employee',
+    },
+    {
+      n: '02',
+      title: 'Managers see the full picture',
+      body: "Who's on leave, who's covering, team workload — all on one screen. Approve or discuss.",
+      accent: 'The manager',
+    },
+    {
+      n: '03',
+      title: 'Balances update themselves',
+      body: 'No spreadsheets. No manual math. Everyone sees their leave balance in real time.',
+      accent: 'The HR team',
+    },
+  ] as const
+
+  return (
+    <section
+      style={{
+        padding: `${SECTION_PADDING_Y} ${SECTION_PADDING_X}`,
+        background: brand.paper,
+        borderBottom: `1.5px solid ${brand.ink}`,
+      }}
+    >
+      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 mb-12 lg:mb-16">
+        <div>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: brand.orange,
+              marginBottom: 20,
+              fontFamily: MONO,
+            }}
+          >
+            § 02 · Bagaimana ia berfungsi
+          </div>
+          <h2
+            style={{
+              fontSize: 'clamp(40px, 6vw, 72px)',
+              fontWeight: 800,
+              lineHeight: 0.95,
+              letterSpacing: '-0.03em',
+              margin: 0,
+              color: brand.ink,
+              maxWidth: 800,
+            }}
+          >
+            Tiga langkah.{' '}
+            <em style={{ fontStyle: 'italic', fontWeight: 500, fontFamily: SERIF, color: brand.orange }}>
+              Zero
+            </em>{' '}
+            drama.
+          </h2>
+        </div>
+        <div style={{ fontSize: 15, color: 'rgba(26,20,16,0.6)', maxWidth: 280 }}>
+          From application to approval to balance updates — every step built for teams that don't like waiting.
+        </div>
+      </div>
+
+      <div
+        className="grid grid-cols-1 md:grid-cols-3"
+        style={{
+          gap: 0,
+          borderTop: `2px solid ${brand.ink}`,
+          borderLeft: `2px solid ${brand.ink}`,
+        }}
+      >
+        {steps.map((s, i) => (
+          <div
+            key={s.n}
+            style={{
+              padding: '36px 32px',
+              borderRight: `2px solid ${brand.ink}`,
+              borderBottom: `2px solid ${brand.ink}`,
+              background: i === 1 ? brand.orangeTint : '#fff',
+              minHeight: 340,
+              position: 'relative',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 'clamp(72px, 8vw, 96px)',
+                fontWeight: 900,
+                lineHeight: 1,
+                letterSpacing: '-0.05em',
+                color: i === 1 ? brand.orange : brand.ink,
+                fontFamily: SERIF,
+                fontStyle: 'italic',
+              }}
+            >
+              {s.n}
+            </div>
+            <div
+              style={{
+                marginTop: 10,
+                fontSize: 10,
+                fontWeight: 800,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: brand.orange,
+                fontFamily: MONO,
+              }}
+            >
+              [ {s.accent} ]
+            </div>
+            <h3
+              style={{
+                marginTop: 14,
+                fontSize: 26,
+                fontWeight: 800,
+                letterSpacing: '-0.02em',
+                color: brand.ink,
+                lineHeight: 1.1,
+              }}
+            >
+              {s.title}
+            </h3>
+            <p style={{ marginTop: 14, fontSize: 15, lineHeight: 1.55, color: 'rgba(26,20,16,0.72)' }}>
+              {s.body}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// §03 Customer story
+// ─────────────────────────────────────────────────────────────
+function Quote() {
+  return (
+    <section
+      id="story"
+      style={{
+        padding: `${SECTION_PADDING_Y} ${SECTION_PADDING_X}`,
+        background: brand.orange,
+        color: '#fff',
+        borderBottom: `1.5px solid ${brand.ink}`,
+      }}
+    >
+      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            marginBottom: 28,
+            fontFamily: MONO,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+          }}
+        >
+          <span>§ 03 · Customer Story</span>
+          <span style={{ flex: 1, height: 1, background: '#fff', opacity: 0.5 }} />
+          <span>No. 08</span>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2.2fr] gap-10 lg:gap-14 items-center">
+          <div>
+            <div
+              style={{
+                width: '100%',
+                aspectRatio: '3/4',
+                background: 'repeating-linear-gradient(45deg, rgba(0,0,0,0.12) 0 8px, transparent 8px 16px)',
+                border: '2px solid #000',
+                borderRadius: 6,
+                display: 'grid',
+                placeItems: 'center',
+                fontFamily: MONO,
+                fontSize: 12,
+                color: 'rgba(0,0,0,0.55)',
+                position: 'relative',
+              }}
+            >
+              [ foto: HR Head ]
+              <div style={{ position: 'absolute', bottom: -14, right: -14 }}>
+                <Stamp size="sm" color="#fff" textColor={brand.orange} rotate={-4}>
+                  PELANGGAN
+                </Stamp>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style={{
+                fontSize: 'clamp(28px, 4vw, 48px)',
+                lineHeight: 1.1,
+                fontWeight: 500,
+                fontFamily: SERIF,
+                fontStyle: 'italic',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 'clamp(80px, 10vw, 120px)',
+                  lineHeight: 0.5,
+                  marginRight: 8,
+                  verticalAlign: '-0.3em',
+                  fontWeight: 800,
+                }}
+              >
+                "
+              </span>
+              Ramadan used to be the most stressful month for my HR team. Now? Every Hari Raya leave is mapped out 3 weeks ahead.
+              We even had{' '}
+              <em
+                style={{
+                  textDecoration: 'underline',
+                  textDecorationThickness: 3,
+                  textUnderlineOffset: 6,
+                }}
+              >
+                five new hires
+              </em>{' '}
+              in the Jakarta team — I hadn't met them in person yet, but their leave was already approved.
+            </div>
+            <div style={{ marginTop: 36, display: 'flex', alignItems: 'center', gap: 20 }}>
+              <div>
+                <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.01em' }}>Shafiqah Ibrahim</div>
+                <div style={{ fontSize: 13, opacity: 0.85, marginTop: 2 }}>
+                  Head of People Ops · Warung Digital (120 staff · 3 countries)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// §04 Features
+// ─────────────────────────────────────────────────────────────
+function Features() {
+  const features = [
+    { span: 'lg:col-span-4', title: 'Team calendar', body: "See who's in, who's out, who's on half-day — in one view. Filter by department, region, or company.", tag: 'Headline', orange: true },
+    { span: 'lg:col-span-2', title: 'Local leave policies', body: 'Ready-made templates for MY, ID, SG, PH, VN. Public, festival, and maternity leave matched to local statute.', tag: 'Compliance', orange: false },
+    { span: 'lg:col-span-2', title: 'Multi-company', body: 'For HR agencies managing many clients. One login, clear hierarchy.', tag: 'Agencies', orange: false },
+    { span: 'lg:col-span-2', title: 'WhatsApp approvals', body: 'Managers can approve without opening a laptop. Yes/no buttons straight to the phone.', tag: 'Mobile', orange: false },
+    { span: 'lg:col-span-2', title: 'Payroll export', body: 'CSV ready for SQL, Xero, Talenox, BrioHR — or plain Excel.', tag: 'Integrations', orange: false },
+    { span: 'lg:col-span-3', title: 'Reports & trends', body: 'Leave patterns by month, department, location. Spot burnout before it arrives.', tag: 'Insight', orange: false },
+    { span: 'lg:col-span-3', title: 'Warning letters & docs', body: 'When needed, all in one place — with a full audit trail.', tag: 'Records', orange: false },
+  ] as const
+
+  return (
+    <section
+      style={{
+        padding: `${SECTION_PADDING_Y} ${SECTION_PADDING_X}`,
+        background: brand.paper,
+        borderBottom: `1.5px solid ${brand.ink}`,
+      }}
+    >
+      <div style={{ marginBottom: 'clamp(40px, 5vw, 56px)' }}>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: brand.orange,
+            marginBottom: 20,
+            fontFamily: MONO,
+          }}
+        >
+          § 04 · Senarai Lengkap
+        </div>
+        <h2
+          style={{
+            fontSize: 'clamp(40px, 6vw, 72px)',
+            fontWeight: 800,
+            lineHeight: 0.95,
+            letterSpacing: '-0.03em',
+            margin: 0,
+            color: brand.ink,
+            maxWidth: 900,
+          }}
+        >
+          Semua yang HR{' '}
+          <em style={{ fontStyle: 'italic', fontWeight: 500, fontFamily: SERIF, color: brand.orange }}>
+            perlu
+          </em>
+          . Tiada yang{' '}
+          <em style={{ fontStyle: 'italic', fontWeight: 500, fontFamily: SERIF, color: brand.orange }}>
+            tak perlu
+          </em>
+          .
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5">
+        {features.map((f) => (
+          <div
+            key={f.title}
+            className={f.span}
+            style={{
+              background: f.orange ? brand.orange : '#fff',
+              color: f.orange ? '#fff' : brand.ink,
+              padding: '28px 30px',
+              border: `2px solid ${brand.ink}`,
+              borderRadius: 8,
+              minHeight: f.orange ? 240 : 180,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              boxShadow: f.orange ? `5px 5px 0 ${brand.ink}` : 'none',
+              position: 'relative',
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontSize: 10,
+                  fontWeight: 800,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: f.orange ? 'rgba(255,255,255,0.8)' : brand.orange,
+                  fontFamily: MONO,
+                }}
+              >
+                [ {f.tag} ]
+              </div>
+              <h3
+                style={{
+                  marginTop: 12,
+                  fontSize: f.orange ? 34 : 22,
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.1,
+                  margin: 0,
+                }}
+              >
+                {f.title}
+              </h3>
+              <p
+                style={{
+                  marginTop: 10,
+                  fontSize: f.orange ? 16 : 14,
+                  lineHeight: 1.55,
+                  color: f.orange ? 'rgba(255,255,255,0.88)' : 'rgba(26,20,16,0.7)',
+                }}
+              >
+                {f.body}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// §05 Finale CTA
+// ─────────────────────────────────────────────────────────────
+function Finale() {
+  return (
+    <section
+      style={{
+        padding: `${SECTION_PADDING_Y} ${SECTION_PADDING_X}`,
+        background: brand.paperDeep,
+        borderBottom: `1.5px solid ${brand.ink}`,
+        textAlign: 'center',
+        position: 'relative',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 700,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: brand.orange,
+          marginBottom: 20,
+          fontFamily: MONO,
+        }}
+      >
+        § 05 · Start Now
+      </div>
+      <h2
+        style={{
+          fontSize: 'clamp(72px, 12vw, 160px)',
+          fontWeight: 900,
+          lineHeight: 0.88,
+          letterSpacing: '-0.05em',
+          color: brand.ink,
+          margin: 0,
+        }}
+      >
+        Selamat<br />
+        <em
+          style={{
+            fontFamily: SERIF,
+            fontStyle: 'italic',
+            fontWeight: 500,
+            color: brand.orange,
+          }}
+        >
+          on leave.
+        </em>
+      </h2>
+      <p
+        style={{
+          marginTop: 28,
+          fontSize: 18,
+          color: 'rgba(26,20,16,0.7)',
+          maxWidth: 520,
+          margin: '28px auto 0',
+        }}
+      >
+        14 days free. No credit card. Setup takes 20 minutes — our team walks your HR through it personally.
+      </p>
+      <div style={{ marginTop: 40, display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+        <Link
+          to="/login"
+          className="c4c-cta-primary"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 10,
+            background: brand.orange,
+            color: '#fff',
+            padding: '20px 32px',
+            borderRadius: 8,
+            border: `2px solid ${brand.ink}`,
+            boxShadow: `5px 5px 0 ${brand.ink}`,
+            fontSize: 17,
+            fontWeight: 800,
+            textDecoration: 'none',
+          }}
+        >
+          Start Free Trial →
+        </Link>
+        <a
+          href="#"
+          className="c4c-cta-secondary"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 10,
+            background: '#fff',
+            color: brand.ink,
+            padding: '20px 32px',
+            borderRadius: 8,
+            border: `2px solid ${brand.ink}`,
+            fontSize: 17,
+            fontWeight: 800,
+            textDecoration: 'none',
+          }}
+        >
+          Talk to Sales
+        </a>
+      </div>
+    </section>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// Footer
+// ─────────────────────────────────────────────────────────────
+function Footer() {
+  const PHONE = '+60 11-5941 1510'
+  const PHONE_TEL = '+60115941510' // dialer format
+  const EMAIL = 'clickonesystem@gmail.com'
+
+  const linkGroups = [
+    { heading: 'Product', items: [['Calendar', '#'], ['Policies', '#'], ['Reports', '#'], ['API', '#']] },
+    { heading: 'Company', items: [['Stories', '#'], ['Careers', '#'], ['Privacy', '#'], ['Terms', '#']] },
+    {
+      heading: 'Get in Touch',
+      items: [
+        ['Email', `mailto:${EMAIL}`],
+        ['WhatsApp', `https://wa.me/${PHONE_TEL.replace(/[^0-9]/g, '')}`],
+        ['Docs', '#'],
+        ['Status', '#'],
+      ],
+    },
+  ] as const
+
+  return (
+    <footer
+      style={{
+        padding: `56px ${SECTION_PADDING_X} 40px`,
+        background: brand.ink,
+        color: brand.paper,
+      }}
+    >
+      <div className="grid grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 md:gap-12">
+        <div className="col-span-2 md:col-span-1">
+          <div
+            style={{
+              fontSize: 36,
+              fontWeight: 900,
+              letterSpacing: '-0.03em',
+              color: brand.orange,
+              fontFamily: SANS,
+              lineHeight: 1,
+            }}
+          >
+            Click4Cuti
+          </div>
+          <div
+            style={{
+              fontSize: 13,
+              marginTop: 12,
+              opacity: 0.7,
+              maxWidth: 320,
+              lineHeight: 1.6,
+            }}
+          >
+            Built in Southeast Asia, for Southeast Asia. With love, and teh tarik.
+          </div>
+
+          {/* Registered entity */}
+          <div style={{ marginTop: 24, maxWidth: 320 }}>
+            <div
+              style={{
+                fontSize: 10,
+                fontWeight: 800,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: brand.orange,
+                fontFamily: MONO,
+                marginBottom: 8,
+              }}
+            >
+              Registered Entity
+            </div>
+            <div style={{ fontSize: 13, fontWeight: 700, lineHeight: 1.5 }}>
+              CLICK ONE SYSTEM ENTERPRISE
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                fontFamily: MONO,
+                opacity: 0.65,
+                marginTop: 4,
+                letterSpacing: '0.04em',
+              }}
+            >
+              SSM 202603109714 (003845611-X)
+            </div>
+            <address
+              style={{
+                fontSize: 12,
+                lineHeight: 1.6,
+                opacity: 0.75,
+                marginTop: 10,
+                fontStyle: 'normal',
+              }}
+            >
+              C-7-10, Centum @ Oasis Corporate Park,<br />
+              No 2, Jalan PJU 1A/2, Ara Damansara,<br />
+              47301 Petaling Jaya, Selangor.
+            </address>
+          </div>
+
+          {/* Direct contact */}
+          <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13 }}>
+            <a
+              href={`mailto:${EMAIL}`}
+              style={{ color: brand.paper, textDecoration: 'none', opacity: 0.9 }}
+            >
+              ✉  {EMAIL}
+            </a>
+            <a
+              href={`tel:${PHONE_TEL}`}
+              style={{ color: brand.paper, textDecoration: 'none', opacity: 0.9, fontFamily: MONO }}
+            >
+              ☏  {PHONE}
+            </a>
+          </div>
+        </div>
+
+        {linkGroups.map((g) => (
+          <div key={g.heading}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 800,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: brand.orange,
+                marginBottom: 14,
+                fontFamily: MONO,
+              }}
+            >
+              {g.heading}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {g.items.map(([label, href]) => {
+                const external = href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')
+                return (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith('http') ? '_blank' : undefined}
+                    rel={href.startsWith('http') ? 'noreferrer' : undefined}
+                    style={{
+                      fontSize: 14,
+                      color: brand.paper,
+                      textDecoration: 'none',
+                      opacity: 0.85,
+                    }}
+                  >
+                    {label}{external && href.startsWith('http') ? ' ↗' : ''}
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div
+        style={{
+          marginTop: 48,
+          paddingTop: 24,
+          borderTop: '1px solid rgba(250,246,242,0.15)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          fontSize: 12,
+          opacity: 0.6,
+          fontFamily: MONO,
+          flexWrap: 'wrap',
+          gap: 8,
+        }}
+      >
+        <span>© 2026 CLICK ONE SYSTEM ENTERPRISE · 003845611-X</span>
+      </div>
+    </footer>
   )
 }
