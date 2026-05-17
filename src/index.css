@@ -95,6 +95,32 @@
   box-shadow: 8px 8px 0 #FE4E01 !important;
 }
 
+/* Festival cards layout — stack on mobile, scattered collage on lg+ */
+.c4c-festival-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+.c4c-festival-grid > .c4c-festival-card {
+  position: static;
+  /* mild rotation only on mobile so the cards don't compete with reading */
+  transform: rotate(calc(var(--fr, 0deg) * 0.4));
+}
+@media (min-width: 1024px) {
+  .c4c-festival-grid {
+    display: block;
+    position: relative;
+    min-height: 440px;
+  }
+  .c4c-festival-grid > .c4c-festival-card {
+    position: absolute;
+    top: var(--ft);
+    left: var(--fl);
+    transform: rotate(var(--fr));
+  }
+}
+
 /* Smooth scroll for anchor links, with offset so sticky nav doesn't cover headings */
 html { scroll-behavior: smooth; }
 .c4c-section-anchor { scroll-margin-top: 80px; }

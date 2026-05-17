@@ -53,7 +53,11 @@ function Nav() {
         justifyContent: 'space-between',
         padding: `18px ${SECTION_PADDING_X}`,
         borderBottom: `1.5px solid ${brand.ink}`,
-        background: brand.paper,
+        // Translucent paper with backdrop blur — keeps the nav legible
+        // when scrolled over the orange Quote and dark Balik Kampung sections.
+        background: 'rgba(250, 246, 242, 0.85)',
+        backdropFilter: 'saturate(180%) blur(10px)',
+        WebkitBackdropFilter: 'saturate(180%) blur(10px)',
         gap: 16,
       }}
     >
@@ -239,7 +243,7 @@ function Hero() {
                 textUnderlineOffset: 4,
               }}
             >
-              Read customer stories
+              Read the customer story
             </a>
           </div>
         </div>
@@ -408,16 +412,18 @@ function BalikKampung() {
           </div>
         </div>
 
-        {/* Festival cards stack */}
-        <div style={{ position: 'relative', minHeight: 440 }}>
+        {/* Festival cards: stack on mobile (no overlap), absolute-positioned
+            collage on lg+ (matches the prototype). README spec. */}
+        <div className="c4c-festival-grid">
           {cards.map((f, i) => (
             <div
               key={f.festival}
               className="c4c-festival-card"
               style={{
-                position: 'absolute',
-                top: f.top,
-                left: f.left,
+                // CSS variables consumed by the @media rule in index.css
+                ['--ft' as string]: `${f.top}px`,
+                ['--fl' as string]: `${f.left}px`,
+                ['--fr' as string]: `${f.rot}deg`,
                 background: i === 1 ? brand.orange : brand.paper,
                 color: i === 1 ? '#fff' : brand.ink,
                 padding: '20px 24px',
@@ -425,7 +431,6 @@ function BalikKampung() {
                 border: `2px solid ${i === 1 ? '#fff' : brand.ink}`,
                 borderRadius: 10,
                 boxShadow: `5px 5px 0 ${brand.orange}`,
-                transform: `rotate(${f.rot}deg)`,
                 zIndex: 4 - i,
               }}
             >
@@ -723,6 +728,8 @@ function Features() {
 
   return (
     <section
+      id="features-anchor"
+      className="c4c-section-anchor"
       style={{
         padding: `${SECTION_PADDING_Y} ${SECTION_PADDING_X}`,
         background: brand.paper,
@@ -942,15 +949,25 @@ function Footer() {
   const EMAIL = 'clickonesystem@gmail.com'
 
   const linkGroups = [
-    { heading: 'Product', items: [['Calendar', '#'], ['Policies', '#'], ['Reports', '#'], ['API', '#']] },
-    { heading: 'Company', items: [['Stories', '#'], ['Careers', '#'], ['Privacy', '#'], ['Terms', '#']] },
+    {
+      heading: 'Product',
+      items: [
+        ['Features', '#features-anchor'],
+        ['Customer Story', '#story'],
+      ],
+    },
+    {
+      heading: 'Company',
+      items: [
+        ['Privacy', '#'],
+        ['Terms', '#'],
+      ],
+    },
     {
       heading: 'Get in Touch',
       items: [
         ['Email', `mailto:${EMAIL}`],
         ['WhatsApp', `https://wa.me/${PHONE_TEL.replace(/[^0-9]/g, '')}`],
-        ['Docs', '#'],
-        ['Status', '#'],
       ],
     },
   ] as const
