@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApplyLeave } from '@/hooks/useLeaves'
 import { useLeaveBalances } from '@/hooks/useLeaveBalances'
+import { useLeavePolicy } from '@/hooks/useLeavePolicy'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { DatePicker } from '@/components/ui/date-picker'
@@ -162,6 +163,7 @@ export default function ApplyLeavePage() {
   const navigate = useNavigate()
   const apply = useApplyLeave()
   const { data: balances } = useLeaveBalances()
+  const { data: leavePolicy } = useLeavePolicy()
   const addToast = useNotificationStore((s) => s.addToast)
   const authUser = useAuthStore((s) => s.user)
   const { data: profile } = useProfile()
@@ -175,11 +177,14 @@ export default function ApplyLeavePage() {
   const [reason, setReason] = useState('')
   const [dayTypes, setDayTypes] = useState<Record<string, DayType>>({})
   const [attached, setAttached] = useState(false)
+  const [extendedReason, setExtendedReason] = useState('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const selectedBalance = balances?.find((b) => b.leave_type.id === leaveTypeId)
   const allowsHalfDay = selectedBalance?.leave_type.allows_half_day ?? false
   const requiresDoc = selectedBalance?.leave_type.requires_document ?? false
+  const maxConsecutive = selectedBalance?.leave_type.max_consecutive_days
+  const requiresCeoApproval = !!maxConsecutive && totalDays > maxConsecutive
 
   const daysInRange = useMemo(() => {
     if (!startDate || !endDate || endDate < startDate) return []
@@ -256,6 +261,7 @@ export default function ApplyLeavePage() {
         start_date: format(startDate, 'yyyy-MM-dd'),
         end_date: format(endDate, 'yyyy-MM-dd'),
         reason: reason.trim(),
+        extended_reason: requiresCeoApproval ? extendedReason.trim() : undefined,
         leave_day_details_attributes,
       },
       {
@@ -267,10 +273,13 @@ export default function ApplyLeavePage() {
           })
           navigate('/leaves')
         },
-        onError: () => {
+        onError: (error: unknown) => {
+          const msg =
+            (error as { response?: { data?: { error?: string } } })?.response?.data?.error ||
+            'Failed to submit leave application.'
           addToast({
             title: 'Error',
-            description: 'Failed to submit leave application.',
+            description: msg,
             variant: 'destructive',
           })
         },
@@ -280,6 +289,9 @@ export default function ApplyLeavePage() {
 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
+  const advanceNotice = leavePolicy?.advance_notice_days || 0
+  const minStartDate = new Date(today)
+  minStartDate.setDate(minStartDate.getDate() + advanceNotice)
 
   const l1 = user?.leave_supervisor_l1 ?? user?.manager ?? null
   const l2 = user?.leave_supervisor_l2 ?? null
@@ -415,7 +427,7 @@ export default function ApplyLeavePage() {
                   value={startDate}
                   onChange={handleStartDate}
                   placeholder="Pick a date"
-                  minDate={today}
+                  minDate={minStartDate}
                 />
                 {errors.startDate && (
                   <p className="text-xs text-destructive">{errors.startDate}</p>
@@ -429,7 +441,7 @@ export default function ApplyLeavePage() {
                   value={endDate}
                   onChange={handleEndDate}
                   placeholder="Pick a date"
-                  minDate={startDate || today}
+                  minDate={startDate || minStartDate}
                 />
                 {errors.endDate && <p className="text-xs text-destructive">{errors.endDate}</p>}
               </div>
@@ -574,6 +586,32 @@ export default function ApplyLeavePage() {
               </div>
             )}
           </section>
+
+          {/* Extended reason (for CEO-required leaves) */}
+          {requiresCeoApproval && (
+            <section className="rounded-[14px] border border-amber-200 bg-amber-50/50 p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <AlertCircle className="h-4 w-4 text-amber-600" />
+                <div className="text-[15px] font-bold text-amber-800">
+                  Extended Reason Required
+                </div>
+              </div>
+              <div className="text-[12px] text-amber-700 mb-3">
+                This leave exceeds {maxConsecutive} consecutive days. Please explain why this
+                extended leave is needed — it will require additional approval.
+              </div>
+              <Textarea
+                value={extendedReason}
+                onChange={(e) => {
+                  setExtendedReason(e.target.value)
+                  setErrors((er) => ({ ...er, extendedReason: '' }))
+                }}
+                rows={3}
+                placeholder="Explain the reason for this extended leave..."
+                className="resize-none text-[13.5px] bg-white border-amber-200"
+              />
+            </section>
+          )}
         </div>
 
         {/* Right rail */}
