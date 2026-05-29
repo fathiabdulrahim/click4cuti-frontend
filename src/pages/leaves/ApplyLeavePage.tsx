@@ -294,6 +294,9 @@ export default function ApplyLeavePage() {
 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
+  const advanceNoticeDays = selectedBalance?.leave_type.advance_notice_days ?? 0
+  const minStartDate = new Date(today)
+  minStartDate.setDate(minStartDate.getDate() + advanceNoticeDays)
 
   const l1 = user?.leave_supervisor_l1 ?? user?.manager ?? null
   const l2 = user?.leave_supervisor_l2 ?? null
@@ -429,8 +432,13 @@ export default function ApplyLeavePage() {
                   value={startDate}
                   onChange={handleStartDate}
                   placeholder="Pick a date"
-                  minDate={today}
+                  minDate={minStartDate}
                 />
+                {advanceNoticeDays > 0 && (
+                  <p className="text-[11px] text-muted-foreground">
+                    Requires {advanceNoticeDays} day(s) advance notice
+                  </p>
+                )}
                 {errors.startDate && (
                   <p className="text-xs text-destructive">{errors.startDate}</p>
                 )}
@@ -443,7 +451,7 @@ export default function ApplyLeavePage() {
                   value={endDate}
                   onChange={handleEndDate}
                   placeholder="Pick a date"
-                  minDate={startDate || today}
+                  minDate={startDate || minStartDate}
                 />
                 {errors.endDate && <p className="text-xs text-destructive">{errors.endDate}</p>}
               </div>

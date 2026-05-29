@@ -167,6 +167,7 @@ export interface LeaveType {
   max_carry_forward_days?: number
   max_times_per_year?: number
   shared_balance_with?: string
+  advance_notice_days?: number
   is_active: boolean
 }
 
