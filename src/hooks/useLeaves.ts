@@ -21,7 +21,8 @@ export function useLeave(id: string) {
 export function useApplyLeave() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (payload: ApplyLeavePayload) => leavesApi.apply(payload).then((r) => r.data),
+    mutationFn: ({ payload, file }: { payload: ApplyLeavePayload; file?: File | null }) =>
+      leavesApi.apply(payload, file).then((r) => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: LEAVES_KEY })
       qc.invalidateQueries({ queryKey: ['leave_balances'] })

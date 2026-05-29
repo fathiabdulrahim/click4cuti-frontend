@@ -5,6 +5,7 @@ import { useLeaveBalances } from '@/hooks/useLeaveBalances'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { DatePicker } from '@/components/ui/date-picker'
+import { FileUploadField } from '@/components/shared/FileUploadField'
 import { useNotificationStore } from '@/stores/notificationStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useProfile } from '@/hooks/useProfile'
@@ -23,7 +24,6 @@ import {
   Send,
   Check,
   Paperclip,
-  Upload,
   CheckCircle2,
 } from 'lucide-react'
 
@@ -174,7 +174,7 @@ export default function ApplyLeavePage() {
   const [endDate, setEndDate] = useState<Date | undefined>()
   const [reason, setReason] = useState('')
   const [dayTypes, setDayTypes] = useState<Record<string, DayType>>({})
-  const [attached, setAttached] = useState(false)
+  const [documentFile, setDocumentFile] = useState<File | null>(null)
   const [extendedReason, setExtendedReason] = useState('')
   const [errors, setErrors] = useState<Record<string, string>>({})
 
@@ -182,7 +182,6 @@ export default function ApplyLeavePage() {
   const allowsHalfDay = selectedBalance?.leave_type.allows_half_day ?? false
   const requiresDoc = selectedBalance?.leave_type.requires_document ?? false
   const maxConsecutive = selectedBalance?.leave_type.max_consecutive_days
-  const requiresCeoApproval = !!maxConsecutive && totalDays > maxConsecutive
 
   const daysInRange = useMemo(() => {
     if (!startDate || !endDate || endDate < startDate) return []
@@ -198,6 +197,8 @@ export default function ApplyLeavePage() {
       return sum + (type === 'FULL_DAY' ? 1 : 0.5)
     }, 0)
   }, [workingDays, dayTypes])
+
+  const requiresCeoApproval = !!maxConsecutive && totalDays > maxConsecutive
 
   const setDayType = (key: string, type: DayType) =>
     setDayTypes((prev) => ({ ...prev, [key]: type }))
@@ -240,6 +241,9 @@ export default function ApplyLeavePage() {
     if (selectedBalance && totalDays > selectedBalance.remaining_days) {
       errs.balance = `Insufficient balance. You have ${selectedBalance.remaining_days} days remaining.`
     }
+    if (requiresDoc && !documentFile) {
+      errs.document = 'A supporting document is required for this leave type'
+    }
     setErrors(errs)
     return Object.keys(errs).length === 0
   }
@@ -255,12 +259,15 @@ export default function ApplyLeavePage() {
 
     apply.mutate(
       {
-        leave_type_id: leaveTypeId,
-        start_date: format(startDate, 'yyyy-MM-dd'),
-        end_date: format(endDate, 'yyyy-MM-dd'),
-        reason: reason.trim(),
-        extended_reason: requiresCeoApproval ? extendedReason.trim() : undefined,
-        leave_day_details_attributes,
+        payload: {
+          leave_type_id: leaveTypeId,
+          start_date: format(startDate, 'yyyy-MM-dd'),
+          end_date: format(endDate, 'yyyy-MM-dd'),
+          reason: reason.trim(),
+          extended_reason: requiresCeoApproval ? extendedReason.trim() : undefined,
+          leave_day_details_attributes,
+        },
+        file: documentFile,
       },
       {
         onSuccess: () => {
@@ -551,33 +558,24 @@ export default function ApplyLeavePage() {
             {errors.reason && <p className="text-xs text-destructive mt-1">{errors.reason}</p>}
 
             {requiresDoc && (
-              <div className="mt-3 rounded-lg border border-dashed border-border px-4 py-3 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center">
-                  <Upload className="h-[15px] w-[15px]" />
+              <div className="mt-3">
+                <div className="text-[13px] font-semibold mb-1">Attach supporting document</div>
+                <div className="text-[11.5px] text-muted-foreground mb-2">
+                  PDF, JPG or PNG · up to 10 MB · required for{' '}
+                  {selectedBalance?.leave_type.name.toLowerCase()}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-semibold">Attach supporting document</div>
-                  <div className="text-[11.5px] text-muted-foreground">
-                    PDF or image · up to 5 MB · required for{' '}
-                    {selectedBalance?.leave_type.name.toLowerCase()}
-                  </div>
-                </div>
-                <Button
-                  type="button"
-                  variant={attached ? 'outline' : 'default'}
-                  size="sm"
-                  onClick={() => setAttached((a) => !a)}
-                  className="cursor-pointer"
-                >
-                  {attached ? (
-                    <>
-                      <Check className="h-[13px] w-[13px]" />
-                      Attached
-                    </>
-                  ) : (
-                    'Browse'
-                  )}
-                </Button>
+                <FileUploadField
+                  value={documentFile}
+                  onChange={(file) => {
+                    setDocumentFile(file)
+                    setErrors((er) => ({ ...er, document: '' }))
+                  }}
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  maxSizeMB={10}
+                />
+                {errors.document && (
+                  <p className="text-xs text-destructive mt-1">{errors.document}</p>
+                )}
               </div>
             )}
           </section>

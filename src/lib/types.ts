@@ -214,6 +214,7 @@ export interface LeaveApplication {
   approver_type?: 'User' | 'AdminUser'
   approver?: { id: string; full_name: string; email: string; type: 'User' | 'AdminUser' }
   leave_day_details?: LeaveDayDetail[]
+  documents?: { id: string; file_name: string; content_type: string; file_size: number }[]
   created_at: string
   updated_at: string
 }
