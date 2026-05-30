@@ -6,16 +6,6 @@ import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { Button } from '@/components/ui/button'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { formatDate, formatDays } from '@/lib/utils'
 import type { LeaveApplication, LeaveStatus } from '@/lib/types'
@@ -28,12 +18,11 @@ export default function MyLeavesPage() {
   const { data: leaves, isLoading } = useLeavesList()
   const cancelLeave = useCancelLeave()
   const [filter, setFilter] = useState<Filter>('ALL')
-  const [cancelTarget, setCancelTarget] = useState<LeaveApplication | null>(null)
 
   const filtered = useMemo(() => {
     if (!leaves) return []
     if (filter === 'ALL') return leaves
-    return leaves.filter((l) => l.status === filter)
+    return leaves.filter((l: LeaveApplication) => l.status === filter)
   }, [leaves, filter])
 
   const counts = useMemo(() => {
@@ -99,7 +88,7 @@ export default function MyLeavesPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.map((leave) => (
+            {filtered.map((leave: LeaveApplication) => (
               <TableRow key={leave.id}>
                 <TableCell className="font-medium">{leave.leave_type.name}</TableCell>
                 <TableCell>{formatDate(leave.start_date)}</TableCell>
@@ -116,7 +105,11 @@ export default function MyLeavesPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setCancelTarget(leave)}
+                        onClick={() => {
+                          if (window.confirm(`Cancel ${leave.leave_type?.name ?? 'leave'} from ${formatDate(leave.start_date)} to ${formatDate(leave.end_date)}?`)) {
+                            cancelLeave.mutate(leave.id)
+                          }
+                        }}
                         disabled={cancelLeave.isPending}
                       >
                         Cancel
@@ -129,35 +122,6 @@ export default function MyLeavesPage() {
           </TableBody>
         </Table>
       )}
-
-      {/* Cancel confirmation dialog */}
-      <AlertDialog open={!!cancelTarget} onOpenChange={(open) => !open && setCancelTarget(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Cancel leave application?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will cancel your {cancelTarget?.leave_type?.name} leave from{' '}
-              {cancelTarget ? formatDate(cancelTarget.start_date) : ''} to{' '}
-              {cancelTarget ? formatDate(cancelTarget.end_date) : ''}. This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Keep</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                if (cancelTarget) {
-                  cancelLeave.mutate(cancelTarget.id, {
-                    onSuccess: () => setCancelTarget(null),
-                  })
-                }
-              }}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
-              {cancelLeave.isPending ? 'Cancelling...' : 'Cancel leave'}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   )
 }
