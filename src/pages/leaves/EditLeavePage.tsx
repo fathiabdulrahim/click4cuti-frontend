@@ -11,7 +11,6 @@ import { cn } from '@/lib/utils'
 import { format, eachDayOfInterval, isWeekend, parseISO } from 'date-fns'
 import type { DayType } from '@/lib/types'
 import {
-  ChevronRight,
   Clock,
   Sun,
   Sunrise,
@@ -27,34 +26,6 @@ const DAY_TYPE_OPTIONS: { value: DayType; label: string; Icon: typeof Sun }[] = 
   { value: 'HALF_DAY_AM', label: 'AM', Icon: Sunrise },
   { value: 'HALF_DAY_PM', label: 'PM', Icon: Sunset },
 ]
-
-function Pill({
-  tone = 'neutral',
-  Icon,
-  children,
-}: {
-  tone?: 'neutral' | 'brand' | 'good' | 'warn'
-  Icon?: typeof Sun
-  children: React.ReactNode
-}) {
-  const tones: Record<string, string> = {
-    neutral: 'bg-muted text-muted-foreground border-border',
-    brand: 'bg-primary/10 text-brand-ink border-primary/20',
-    good: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    warn: 'bg-amber-50 text-amber-700 border-amber-200',
-  }
-  return (
-    <span
-      className={cn(
-        'inline-flex items-center gap-1 rounded-full border px-2 py-[2px] text-[11px] font-semibold',
-        tones[tone]
-      )}
-    >
-      {Icon && <Icon className="h-[11px] w-[11px]" />}
-      {children}
-    </span>
-  )
-}
 
 function Segmented({
   value,
@@ -93,7 +64,7 @@ function Segmented({
 export default function EditLeavePage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const addNotification = useNotificationStore((s) => s.add)
+  const addToast = useNotificationStore((s) => s.addToast)
 
   const { data: leave, isLoading: leaveLoading } = useLeave(id ?? '')
   const { data: balances } = useLeaveBalances()
@@ -128,14 +99,14 @@ export default function EditLeavePage() {
   // Redirect if not pending
   useEffect(() => {
     if (leave && leave.status !== 'PENDING') {
-      addNotification({
-        type: 'error',
+      addToast({
+        variant: 'destructive',
         title: 'Cannot edit',
-        message: 'Only pending leave applications can be edited.',
+        description: 'Only pending leave applications can be edited.',
       })
       navigate('/leaves')
     }
-  }, [leave, navigate, addNotification])
+  }, [leave, navigate, addToast])
 
   const workingDays = useMemo(() => {
     if (!startDate || !endDate) return 0
@@ -196,16 +167,16 @@ export default function EditLeavePage() {
       },
       {
         onSuccess: () => {
-          addNotification({
-            type: 'success',
+          addToast({
+            variant: 'success',
             title: 'Leave updated',
-            message: 'Your leave application has been updated.',
+            description: 'Your leave application has been updated.',
           })
           navigate('/leaves')
         },
         onError: (err: unknown) => {
           const msg = err instanceof Error ? err.message : 'Failed to update leave'
-          addNotification({ type: 'error', title: 'Update failed', message: msg })
+          addToast({ variant: 'destructive', title: 'Update failed', description: msg })
         },
       }
     )
@@ -257,8 +228,8 @@ export default function EditLeavePage() {
           <div>
             <label className="text-sm font-medium mb-1 block">Start Date</label>
             <DatePicker
-              date={startDate}
-              onSelect={setStartDate}
+              value={startDate}
+              onChange={setStartDate}
               disabled={(date) => date < new Date()}
             />
             {errors.start_date && (
@@ -270,8 +241,8 @@ export default function EditLeavePage() {
           <div>
             <label className="text-sm font-medium mb-1 block">End Date</label>
             <DatePicker
-              date={endDate}
-              onSelect={setEndDate}
+              value={endDate}
+              onChange={setEndDate}
               disabled={(date) => date < new Date()}
             />
             {errors.end_date && (
