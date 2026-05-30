@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { leavesApi, type ApplyLeavePayload } from '@/api/leaves'
 
 export const LEAVES_KEY = ['leaves', 'list'] as const
@@ -21,12 +21,24 @@ export function useLeave(id: string) {
 export function useApplyLeave() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: ({ payload, file }: { payload: ApplyLeavePayload; file?: File | null }) =>
-      leavesApi.apply(payload, file).then((r) => r.data),
+    mutationFn: (payload: ApplyLeavePayload) => leavesApi.apply(payload).then((r) => r.data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: LEAVES_KEY })
       qc.invalidateQueries({ queryKey: ['leave_balances'] })
       qc.invalidateQueries({ queryKey: ['dashboard'] })
+    },
+  })
+}
+
+export function useUpdateLeave() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, payload }: { id: string; payload: Partial<ApplyLeavePayload> }) =>
+      leavesApi.update(id, payload).then((r) => r.data),
+    onSuccess: (_, { id }) => {
+      qc.invalidateQueries({ queryKey: LEAVES_KEY })
+      qc.invalidateQueries({ queryKey: ['leaves', id] })
+      qc.invalidateQueries({ queryKey: ['leave_balances'] })
     },
   })
 }
