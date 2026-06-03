@@ -153,6 +153,13 @@ export default function LoginPage() {
           >
             Back to homepage
           </Link>
+          <span className="text-gray-300">·</span>
+          <Link
+            to="/admin/login"
+            className="inline-flex text-xs font-medium text-gray-400 hover:text-[#FE4E01] transition-colors cursor-pointer"
+          >
+            Admin login
+          </Link>
         </div>
       </div>
     </div>
