@@ -116,12 +116,44 @@ export const PoliciesTab = forwardRef<PoliciesTabHandle, PoliciesTabProps>(
                   </div>
 
                   {policy.leave_types && policy.leave_types.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-3 border-t">
-                      {policy.leave_types.map((lt) => (
-                        <Badge key={lt.id} variant="outline" className="text-[11px] font-normal">
-                          {lt.name}
-                        </Badge>
-                      ))}
+                    <div className="pt-3 border-t">
+                      <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide mb-2">
+                        Leave Types
+                      </p>
+                      <div className="divide-y divide-gray-100">
+                        {policy.leave_types.map((lt) => {
+                          const t1 = lt.default_days_tier1
+                          const t2 = lt.default_days_tier2
+                          const t3 = lt.default_days_tier3
+                          const allSame = t1 === t2 && t2 === t3
+                          const daysLabel = allSame ? `${t1} days` : `${t1}/${t2}/${t3} days`
+                          return (
+                            <div key={lt.id} className="flex items-center gap-2 py-1.5">
+                              <span className="flex-1 text-xs truncate">{lt.name}</span>
+                              <Badge
+                                variant="outline"
+                                className={`text-[10px] font-medium px-1.5 py-0 shrink-0 ${
+                                  lt.category === 'MANDATORY'
+                                    ? 'border-blue-200 text-blue-700 bg-blue-50'
+                                    : 'border-purple-200 text-purple-700 bg-purple-50'
+                                }`}
+                              >
+                                {lt.category}
+                              </Badge>
+                              <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
+                                {daysLabel}
+                              </span>
+                              {(lt.max_consecutive_days || lt.max_times_per_year) && (
+                                <span className="text-[10px] text-muted-foreground/70 shrink-0">
+                                  {lt.max_consecutive_days
+                                    ? `max ${lt.max_consecutive_days} consec.`
+                                    : `max ${lt.max_times_per_year}x/yr`}
+                                </span>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
                     </div>
                   )}
                 </CardContent>
