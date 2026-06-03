@@ -129,6 +129,23 @@ export function useAdminLeavePolicies() {
   })
 }
 
+export function useCreateLeavePolicy() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) => adminLeavePoliciesApi.create(payload).then((r) => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'leave_policies'] }),
+  })
+}
+
+export function useUpdateLeavePolicy() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: { id: string } & Record<string, unknown>) =>
+      adminLeavePoliciesApi.update(id, payload).then((r) => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'leave_policies'] }),
+  })
+}
+
 // Leave Types
 export function useAdminLeaveTypes(params?: Record<string, string>) {
   return useQuery({
