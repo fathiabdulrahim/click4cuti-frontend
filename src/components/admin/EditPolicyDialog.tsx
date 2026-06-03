@@ -74,14 +74,14 @@ export function EditPolicyDialog({ open, onOpenChange, policy }: EditPolicyDialo
 
     setIsSubmitting(true)
     try {
-      await updatePolicy.mutateAsync({ id: policy.id, ...formData })
-      addToast({ title: 'Success', description: 'Leave policy updated successfully', type: 'success' })
+      await updatePolicy.mutateAsync({ id: policy.id, ...(formData as Record<string, unknown>) })
+      addToast({ title: 'Success', description: 'Leave policy updated successfully', variant: 'success' })
       onOpenChange(false)
     } catch (error) {
       addToast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to update policy',
-        type: 'error',
+        variant: 'destructive',
       })
     } finally {
       setIsSubmitting(false)
@@ -94,14 +94,14 @@ export function EditPolicyDialog({ open, onOpenChange, policy }: EditPolicyDialo
     setIsSubmitting(true)
     try {
       await updatePolicy.mutateAsync({ id: policy.id, is_active: false })
-      addToast({ title: 'Success', description: 'Leave policy deactivated successfully', type: 'success' })
+      addToast({ title: 'Success', description: 'Leave policy deactivated successfully', variant: 'success' })
       setShowDeleteConfirm(false)
       onOpenChange(false)
     } catch (error) {
       addToast({
         title: 'Error',
         description: error instanceof Error ? error.message : 'Failed to deactivate policy',
-        type: 'error',
+        variant: 'destructive',
       })
     } finally {
       setIsSubmitting(false)
