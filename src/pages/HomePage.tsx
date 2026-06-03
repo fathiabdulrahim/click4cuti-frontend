@@ -78,6 +78,20 @@ function Nav() {
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <Link
+          to="/admin/login"
+          className="c4c-nav-link hidden md:inline-flex"
+          title="Admin login"
+          style={{
+            fontSize: 14,
+            fontWeight: 600,
+            color: '#7A736D',
+            textDecoration: 'none',
+            padding: '8px 14px',
+          }}
+        >
+          Admin Login
+        </Link>
+        <Link
           to="/login"
           className="c4c-nav-link hidden md:inline-flex"
           style={{
@@ -89,19 +103,6 @@ function Nav() {
           }}
         >
           Log In
-        </Link>
-        <Link
-          to="/admin/login"
-          className="c4c-nav-link hidden md:inline-flex"
-          style={{
-            fontSize: 13,
-            fontWeight: 600,
-            color: 'rgba(26,20,16,0.5)',
-            textDecoration: 'none',
-            padding: '8px 12px',
-          }}
-        >
-          Admin
         </Link>
         <Link
           to="/login"
