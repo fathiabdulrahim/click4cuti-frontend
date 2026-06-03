@@ -147,12 +147,21 @@ export default function LoginPage() {
           <p className="text-xs text-gray-400">
             Secure login powered by Click4Cuti
           </p>
-          <Link
-            to="/"
-            className="inline-flex text-xs font-medium text-gray-500 hover:text-[#FE4E01] transition-colors cursor-pointer"
-          >
-            Back to homepage
-          </Link>
+          <div className="flex items-center justify-center gap-2">
+            <Link
+              to="/"
+              className="inline-flex text-xs font-medium text-gray-500 hover:text-[#FE4E01] transition-colors cursor-pointer"
+            >
+              Back to homepage
+            </Link>
+            <span className="text-gray-300 text-xs">·</span>
+            <Link
+              to="/admin/login"
+              className="inline-flex text-xs font-medium text-gray-400 hover:text-[#FE4E01] transition-colors cursor-pointer"
+            >
+              Admin Login
+            </Link>
+          </div>
         </div>
       </div>
     </div>
