@@ -18,12 +18,14 @@ interface CreatePolicyForm {
 interface CreatePolicyDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  companyId?: string
 }
 
-export function CreatePolicyDialog({ open, onOpenChange }: CreatePolicyDialogProps) {
+export function CreatePolicyDialog({ open, onOpenChange, companyId: companyIdProp }: CreatePolicyDialogProps) {
   const createPolicy = useCreateLeavePolicy()
   const { addToast } = useNotificationStore()
-  const companyId = useAuthStore((s) => s.adminUser?.company_id)
+  const authCompanyId = useAuthStore((s) => s.adminUser?.company_id)
+  const companyId = companyIdProp ?? authCompanyId
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState<CreatePolicyForm>({
     name: '',

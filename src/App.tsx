@@ -20,7 +20,6 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import UserManagementPage from './pages/admin/UserManagementPage'
 import CompanyManagementPage from './pages/admin/CompanyManagementPage'
 import AgencyManagementPage from './pages/admin/AgencyManagementPage'
-import PolicyManagementPage from './pages/admin/PolicyManagementPage'
 import HolidayManagementPage from './pages/admin/HolidayManagementPage'
 import LeaveApplicationsPage from './pages/admin/LeaveApplicationsPage'
 import AgencyDetailPage from './pages/admin/AgencyDetailPage'
@@ -62,7 +61,6 @@ export default function App() {
             <Route path="/admin/branches" element={<BranchManagementPage />} />
             <Route path="/admin/claim-types" element={<ClaimTypeManagementPage />} />
             <Route path="/admin/leaves" element={<LeaveApplicationsPage />} />
-            <Route path="/admin/policies" element={<PolicyManagementPage />} />
             <Route path="/admin/holidays" element={<HolidayManagementPage />} />
 
             {/* Agency + SuperAdmin only */}

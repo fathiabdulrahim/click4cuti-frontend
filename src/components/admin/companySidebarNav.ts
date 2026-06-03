@@ -6,6 +6,7 @@ import {
   ListChecks,
   CalendarDays,
   FileCheck,
+  Shield,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -41,6 +42,7 @@ export const COMPANY_NAV: CompanyNavGroup[] = [
     items: [
       { value: 'leave_types', label: 'Leave Types', icon: ListChecks },
       { value: 'leaves', label: 'Leave Applications', icon: FileCheck },
+      { value: 'policies', label: 'Policies', icon: Shield },
     ],
   },
 ]
