@@ -14,6 +14,7 @@ import { WorkSchedulesTab, type WorkSchedulesTabHandle } from '@/pages/admin/com
 import { LeaveTypesTab, type LeaveTypesTabHandle } from '@/pages/admin/company/LeaveTypesTab'
 import { HolidaysTab } from '@/pages/admin/company/HolidaysTab'
 import { LeaveApplicationsTab } from '@/pages/admin/company/LeaveApplicationsTab'
+import { PoliciesTab, type PoliciesTabHandle } from '@/pages/admin/company/PoliciesTab'
 
 interface Props {
   companyId: string
@@ -33,6 +34,7 @@ const addButtonTabs: Record<string, string> = {
   designations: 'Add Designation',
   schedules: 'Add Schedule',
   leave_types: 'Add Leave Type',
+  policies: 'Add Policy',
 }
 
 export function CompanyTabs({
@@ -57,6 +59,7 @@ export function CompanyTabs({
   const designationsRef = useRef<DesignationsTabHandle>(null)
   const schedulesRef = useRef<WorkSchedulesTabHandle>(null)
   const leaveTypesRef = useRef<LeaveTypesTabHandle>(null)
+  const policiesRef = useRef<PoliciesTabHandle>(null)
 
   function handleChange(value: string) {
     const next = new URLSearchParams(params)
@@ -72,6 +75,7 @@ export function CompanyTabs({
       designations: designationsRef,
       schedules: schedulesRef,
       leave_types: leaveTypesRef,
+      policies: policiesRef,
     }
     refMap[tab]?.current?.openCreate()
   }
@@ -133,6 +137,9 @@ export function CompanyTabs({
             )}
             {tab === 'leaves' && (
               <LeaveApplicationsTab leaveApps={leaveApps} search={search} />
+            )}
+            {tab === 'policies' && (
+              <PoliciesTab ref={policiesRef} companyId={companyId} />
             )}
           </CardContent>
         </Card>
