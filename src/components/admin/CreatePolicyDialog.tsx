@@ -60,7 +60,7 @@ export function CreatePolicyDialog({ open, onOpenChange }: CreatePolicyDialogPro
 
     setIsSubmitting(true)
     try {
-      await createPolicy.mutateAsync(formData as Record<string, unknown>)
+      await createPolicy.mutateAsync(formData as unknown as Record<string, unknown>)
       addToast({ title: 'Success', description: 'Leave policy created successfully', variant: 'success' })
       setFormData({ name: '', description: '', advance_notice_days: 7 })
       setErrors({})

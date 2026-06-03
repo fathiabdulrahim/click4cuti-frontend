@@ -74,7 +74,7 @@ export function EditPolicyDialog({ open, onOpenChange, policy }: EditPolicyDialo
 
     setIsSubmitting(true)
     try {
-      await updatePolicy.mutateAsync({ id: policy.id, ...(formData as Record<string, unknown>) })
+      await updatePolicy.mutateAsync({ id: policy.id, ...(formData as unknown as Record<string, unknown>) })
       addToast({ title: 'Success', description: 'Leave policy updated successfully', variant: 'success' })
       onOpenChange(false)
     } catch (error) {
