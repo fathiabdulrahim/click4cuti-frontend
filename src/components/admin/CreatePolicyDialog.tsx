@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useCreateLeavePolicy } from '@/hooks/useAdmin'
 import { useNotificationStore } from '@/stores/notificationStore'
+import { useAuthStore } from '@/stores/authStore'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -22,6 +23,7 @@ interface CreatePolicyDialogProps {
 export function CreatePolicyDialog({ open, onOpenChange }: CreatePolicyDialogProps) {
   const createPolicy = useCreateLeavePolicy()
   const { addToast } = useNotificationStore()
+  const companyId = useAuthStore((s) => s.adminUser?.company_id)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState<CreatePolicyForm>({
     name: '',
@@ -58,9 +60,14 @@ export function CreatePolicyDialog({ open, onOpenChange }: CreatePolicyDialogPro
       return
     }
 
+    if (!companyId) {
+      addToast({ title: 'Error', description: 'No company associated with your account', variant: 'destructive' })
+      return
+    }
+
     setIsSubmitting(true)
     try {
-      await createPolicy.mutateAsync(formData as unknown as Record<string, unknown>)
+      await createPolicy.mutateAsync({ ...formData, company_id: companyId } as unknown as Record<string, unknown>)
       addToast({ title: 'Success', description: 'Leave policy created successfully', variant: 'success' })
       setFormData({ name: '', description: '', advance_notice_days: 7 })
       setErrors({})

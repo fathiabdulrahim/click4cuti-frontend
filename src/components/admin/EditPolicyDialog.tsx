@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUpdateLeavePolicy } from '@/hooks/useAdmin'
 import { useNotificationStore } from '@/stores/notificationStore'
+import { useAuthStore } from '@/stores/authStore'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -24,6 +25,7 @@ interface EditPolicyDialogProps {
 export function EditPolicyDialog({ open, onOpenChange, policy }: EditPolicyDialogProps) {
   const updatePolicy = useUpdateLeavePolicy()
   const { addToast } = useNotificationStore()
+  const companyId = useAuthStore((s) => s.adminUser?.company_id)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [formData, setFormData] = useState<EditPolicyForm>({
@@ -74,7 +76,7 @@ export function EditPolicyDialog({ open, onOpenChange, policy }: EditPolicyDialo
 
     setIsSubmitting(true)
     try {
-      await updatePolicy.mutateAsync({ id: policy.id, ...(formData as unknown as Record<string, unknown>) })
+      await updatePolicy.mutateAsync({ id: policy.id, company_id: companyId, ...(formData as unknown as Record<string, unknown>) })
       addToast({ title: 'Success', description: 'Leave policy updated successfully', variant: 'success' })
       onOpenChange(false)
     } catch (error) {
@@ -109,16 +111,43 @@ export function EditPolicyDialog({ open, onOpenChange, policy }: EditPolicyDialo
   }
 
   return (
-    <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit Leave Policy</DialogTitle>
-            <DialogDescription>
-              Update the leave policy details
-            </DialogDescription>
-          </DialogHeader>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Edit Leave Policy</DialogTitle>
+          <DialogDescription>
+            Update the policy details
+          </DialogDescription>
+        </DialogHeader>
 
+        {showDeleteConfirm ? (
+          <div className="space-y-4">
+            <div className="bg-red-50 border border-red-200 rounded-md p-4">
+              <p className="text-sm text-red-800 font-medium">Deactivate this policy?</p>
+              <p className="text-sm text-red-700 mt-1">
+                This will deactivate the leave policy for your company.
+              </p>
+            </div>
+            <div className="flex justify-end gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={isSubmitting}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                variant="destructive"
+                onClick={handleDeactivate}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? <LoadingSpinner className="h-4 w-4" /> : 'Deactivate'}
+              </Button>
+            </div>
+          </div>
+        ) : (
           <form onSubmit={onSubmit} className="space-y-4">
             <div>
               <Label htmlFor="name" className="text-sm font-medium">
@@ -186,59 +215,32 @@ export function EditPolicyDialog({ open, onOpenChange, policy }: EditPolicyDialo
               )}
             </div>
 
-            <div className="flex justify-between gap-3 pt-4">
+            <div className="flex justify-end gap-3 pt-4">
               <Button
                 type="button"
-                variant="destructive"
-                onClick={() => setShowDeleteConfirm(true)}
-                disabled={isSubmitting}
-              >
-                Deactivate
-              </Button>
-              <div className="flex gap-3">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => onOpenChange(false)}
-                  disabled={isSubmitting}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={isSubmitting} className="min-w-[100px]">
-                  {isSubmitting ? <LoadingSpinner className="h-4 w-4" /> : 'Save Changes'}
-                </Button>
-              </div>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      {showDeleteConfirm && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
-          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm mx-4">
-            <h2 className="text-lg font-semibold mb-2">Deactivate Leave Policy?</h2>
-            <p className="text-sm text-gray-600 mb-4">
-              This will deactivate the "{policy?.name}" policy. It won't be deleted, but employees won't be able to use it for new leave applications.
-            </p>
-            <div className="flex justify-end gap-3">
-              <Button
                 variant="outline"
-                onClick={() => setShowDeleteConfirm(false)}
+                onClick={() => onOpenChange(false)}
                 disabled={isSubmitting}
               >
                 Cancel
               </Button>
-              <Button
-                variant="destructive"
-                onClick={handleDeactivate}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? <LoadingSpinner className="h-4 w-4" /> : 'Deactivate'}
+              {policy?.is_active && (
+                <Button
+                  type="button"
+                  variant="destructive"
+                  onClick={() => setShowDeleteConfirm(true)}
+                  disabled={isSubmitting}
+                >
+                  Deactivate
+                </Button>
+              )}
+              <Button type="submit" disabled={isSubmitting} className="min-w-[100px]">
+                {isSubmitting ? <LoadingSpinner className="h-4 w-4" /> : 'Update Policy'}
               </Button>
             </div>
-          </div>
-        </div>
-      )}
-    </>
+          </form>
+        )}
+      </DialogContent>
+    </Dialog>
   )
 }
