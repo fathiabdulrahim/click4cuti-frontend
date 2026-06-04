@@ -25,7 +25,6 @@ const adminLinks = [
   { to: '/admin/agencies', icon: Shield, label: 'Agencies' },
   { to: '/admin/companies', icon: Building2, label: 'Companies' },
   { to: '/admin/users', icon: Users, label: 'Users' },
-  { to: '/admin/policies', icon: FileText, label: 'Leave Policies' },
   { to: '/admin/holidays', icon: CalendarDays, label: 'Public Holidays' },
   { to: '/admin/leaves', icon: Calendar, label: 'Leave Applications' },
 ]
