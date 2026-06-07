@@ -36,6 +36,7 @@ const leaveTypeSchema = z.object({
   default_days_tier2: z.coerce.number().min(0, 'Required'),
   default_days_tier3: z.coerce.number().min(0, 'Required'),
   max_consecutive_days: z.coerce.number().optional(),
+  ceo_approval_enabled: z.boolean().default(false),
   requires_document: z.boolean(),
   allows_half_day: z.boolean(),
   allows_carry_forward: z.boolean(),
@@ -66,6 +67,7 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
     const [ltRequiresDoc, setLtRequiresDoc] = useState(false)
     const [ltAllowsHalf, setLtAllowsHalf] = useState(false)
     const [ltAllowsCarry, setLtAllowsCarry] = useState(false)
+    const [ltCeoApproval, setLtCeoApproval] = useState(false)
     const [ltCategory, setLtCategory] = useState('')
     const ltForm = useForm<LeaveTypeFormValues>({ resolver: zodResolver(leaveTypeSchema) })
 
@@ -79,12 +81,15 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
         setLtRequiresDoc(false)
         setLtAllowsHalf(false)
         setLtAllowsCarry(false)
+        setLtCeoApproval(false)
+        ltForm.setValue('ceo_approval_enabled', false)
         setLtCategory('')
         ltForm.reset({
           name: '', category: '', default_days_tier1: 0, default_days_tier2: 0, default_days_tier3: 0,
           max_consecutive_days: undefined, requires_document: false, allows_half_day: false,
           allows_carry_forward: false, max_carry_forward_days: undefined, max_times_per_year: undefined,
-        })
+          ceo_approval_enabled: false,
+          })
         setLtOpen(true)
       },
     }))
@@ -94,6 +99,7 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
       setLtRequiresDoc(lt.requires_document)
       setLtAllowsHalf(lt.allows_half_day)
       setLtAllowsCarry(lt.allows_carry_forward)
+      setLtCeoApproval(lt.ceo_approval_enabled ?? false)
       setLtCategory(lt.category)
       ltForm.reset({
         name: lt.name, category: lt.category,
@@ -102,6 +108,7 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
         requires_document: lt.requires_document, allows_half_day: lt.allows_half_day,
         allows_carry_forward: lt.allows_carry_forward, max_carry_forward_days: lt.max_carry_forward_days,
         max_times_per_year: lt.max_times_per_year,
+  ceo_approval_enabled: lt.ceo_approval_enabled ?? false,
       })
       setLtOpen(true)
     }
@@ -147,7 +154,7 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
                         <div>
                           <span className="font-medium">{lt.name}</span>
                           {lt.max_consecutive_days && (
-                            <p className="text-[11px] text-muted-foreground">Max {lt.max_consecutive_days} consecutive days</p>
+                            <p className="text-[11px] text-muted-foreground">Max {lt.max_consecutive_days} consecutive days{lt.ceo_approval_enabled ? ' (CEO approval)' : ''}</p>
                           )}
                         </div>
                       </div>
@@ -270,6 +277,20 @@ export const LeaveTypesTab = forwardRef<LeaveTypesTabHandle, LeaveTypesTabProps>
                 <div className="space-y-2">
                   <Label htmlFor="lt-maxtimes">Max Times Per Year</Label>
                   <Input id="lt-maxtimes" type="number" min={0} placeholder="No limit" {...ltForm.register('max_times_per_year')} />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 rounded-lg border border-border/60 p-4">
+                <input
+                  type="checkbox"
+                  id="lt-ceo-approval"
+                  checked={ltCeoApproval}
+                  onChange={(e) => { setLtCeoApproval(e.target.checked); ltForm.setValue('ceo_approval_enabled', e.target.checked) }}
+                  className="h-4 w-4 rounded border-gray-300 text-[#FE4E01] focus:ring-[#FE4E01] cursor-pointer"
+                />
+                <div>
+                  <Label htmlFor="lt-ceo-approval" className="cursor-pointer">Require CEO Approval</Label>
+                  <p className="text-xs text-muted-foreground">When enabled, leaves exceeding the consecutive day limit will require CEO approval</p>
                 </div>
               </div>
 

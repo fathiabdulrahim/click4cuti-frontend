@@ -161,6 +161,7 @@ export interface LeaveType {
   default_days_tier2: number
   default_days_tier3: number
   max_consecutive_days?: number
+  ceo_approval_enabled?: boolean
   requires_document: boolean
   allows_half_day: boolean
   allows_carry_forward: boolean

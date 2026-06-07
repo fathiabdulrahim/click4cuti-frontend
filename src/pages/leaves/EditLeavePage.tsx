@@ -124,7 +124,7 @@ export default function EditLeavePage() {
   }, [balance, leave, workingDays])
 
   const needsExtendedReason = useMemo(() => {
-    if (!leaveType?.max_consecutive_days) return false
+    if (!leaveType?.ceo_approval_enabled || !leaveType?.max_consecutive_days) return false
     return workingDays > leaveType.max_consecutive_days
   }, [workingDays, leaveType])
 
