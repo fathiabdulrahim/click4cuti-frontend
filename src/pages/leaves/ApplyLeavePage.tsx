@@ -198,7 +198,7 @@ export default function ApplyLeavePage() {
     }, 0)
   }, [workingDays, dayTypes])
 
-  const requiresCeoApproval = !!maxConsecutive && totalDays > maxConsecutive
+  const requiresCeoApproval = !!selectedBalance?.leave_type.ceo_approval_enabled && !!maxConsecutive && totalDays > maxConsecutive
 
   const setDayType = (key: string, type: DayType) =>
     setDayTypes((prev) => ({ ...prev, [key]: type }))
